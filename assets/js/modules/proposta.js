@@ -91,7 +91,7 @@
 
   /** Troca para o idioma do documento todo texto que ainda é o padrão de QUALQUER idioma (textos editados são preservados). */
   function localize(legacy) {
-    TEXT_KEYS.forEach(function (x) { if (D.isDef(x, st[x], legacy)) st[x] = D.DEF[st.idioma][x]; });
+    TEXT_KEYS.forEach(function (x) { var v = D.translate(x, st[x], st.idioma); if (v != null) st[x] = v; });
   }
   function init() {
     L.shell.mount('proposta'); L.ia.mount('proposta');

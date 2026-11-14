@@ -147,7 +147,7 @@
   var LOC = [['titulo', 'titulo'], ['escopo', 'cEscopo'], ['mensalItens', 'mensalItens']];
   /** Troca para o idioma do documento todo texto que ainda é o padrão de QUALQUER idioma (textos editados são preservados). */
   function localize(legacy) {
-    LOC.forEach(function (k) { if (D.isDef(k[1], st[k[0]], legacy)) st[k[0]] = D.DEF[st.idioma][k[1]]; });
+    LOC.forEach(function (k) { var v = D.translate(k[1], st[k[0]], st.idioma); if (v != null) st[k[0]] = v; });
   }
   function init() {
     L.shell.mount('contrato'); L.ia.mount('contrato');

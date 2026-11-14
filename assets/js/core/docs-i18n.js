@@ -287,5 +287,42 @@
     for (var l in DEF) if (DEF[l][key] === val) return true;
     return !!legacy && (LEGACY[key] || []).indexOf(val) >= 0;
   }
-  L.docs18n = { isDef: isDef, P: P, C: C, DEF: DEF, fill: fill, dateLong: dateLong, cur: cur, num: num, pct: pct, MESES: MESES };
+  var IDX = { pt: 0, en: 1, es: 2 };
+  function norm(x) { return String(x == null ? '' : x).replace(/\r\n?/g, '\n').split('\n').map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).join('\n').trim(); }
+  function groups(key) {
+    var g = [[DEF.pt[key], DEF.en[key], DEF.es[key]]], lg = LEGACY[key] || [], i;
+    for (i = 0; i + 2 < lg.length; i += 3) g.push([lg[i], lg[i + 1], lg[i + 2]]);
+    return g;
+  }
+  var UNITS = { dia: 1, dias: 1, 'días': 1, day: 1, days: 1 };
+  /**
+   * Devolve o texto na língua pedida se o valor é (ou contém linhas) de um texto padrão, atual ou antigo, de qualquer idioma.
+   * Texto escrito à mão nunca é alterado. Sem mudança: null.
+   */
+  function translate(key, val, lang) {
+    var li = IDX[lang], nv = norm(val), G = groups(key), a, b, out;
+    if (!nv || li == null || !DEF[lang] || DEF[lang][key] == null) return null;
+    for (a = 0; a < G.length; a++) for (b = 0; b < 3; b++) if (norm(G[a][b]) === nv) return DEF[lang][key];
+    if (key === 'prazo') {
+      var m = nv.match(/^(\d+)\s+(\S+)\s+(\S+)$/);
+      if (m && UNITS[m[2].toLowerCase()] && /^(úteis|uteis|hábeis|habeis|hábiles|habiles|business|working)$/i.test(m[3]))
+        return m[1] + ' ' + (lang === 'en' ? 'business days' : lang === 'es' ? 'días hábiles' : 'dias úteis');
+      return null;
+    }
+    var changed = false;
+    out = String(val).replace(/\r\n?/g, '\n').split('\n').map(function (line) {
+      var n = norm(line), x, y, cols, k;
+      if (!n) return line;
+      for (x = 0; x < G.length; x++) {
+        cols = G[x].map(function (v) { return String(v).split('\n').map(norm); });
+        for (y = 0; y < 3; y++) {
+          k = cols[y].indexOf(n);
+          if (k >= 0 && cols[li].length === cols[y].length) { var nl = String(G[x][li]).split('\n')[k]; if (norm(nl) !== n) changed = true; return nl; }
+        }
+      }
+      return line;
+    });
+    return changed ? out.join('\n') : null;
+  }
+  L.docs18n = { translate: translate, isDef: isDef, P: P, C: C, DEF: DEF, fill: fill, dateLong: dateLong, cur: cur, num: num, pct: pct, MESES: MESES };
 })(window);
