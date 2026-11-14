@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Configurações · LDT Propostas &amp; Contratos</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#17181B">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body data-root="../">
+<noscript><p style="padding:24px">Este sistema precisa de JavaScript para funcionar.</p></noscript>
+<div id="content" tabindex="-1">
+  <div class="page">
+    <header class="page-head">
+      <div><h1>Configurações</h1><p>Dados da empresa, imposto, taxas da TechFX e do Asaas e backup. Tudo é salvo automaticamente neste navegador.</p></div>
+    </header>
+    <div class="cfg-grid">
+      <section class="card cfg-card" id="empresa" aria-labelledby="h-emp">
+        <h2 id="h-emp">Dados da empresa</h2>
+        <p>Aparecem no cabeçalho, no rodapé e nas assinaturas de propostas e contratos.</p>
+        <label class="field"><span>Razão social</span><input data-k="nome" autocomplete="organization"></label>
+        <label class="field"><span>Slogan ou área</span><input data-k="area"></label>
+        <div class="row">
+          <label class="field"><span>CNPJ</span><input data-k="cnpj" data-mask="doc" inputmode="numeric" placeholder="00.000.000/0000-00"><small id="cnpj-hint"></small></label>
+          <label class="field"><span>Telefone</span><input data-k="tel" data-mask="phone" inputmode="tel" type="tel" placeholder="(00) 00000-0000"></label>
+        </div>
+        <div class="row">
+          <label class="field"><span>E-mail</span><input data-k="email" type="email" placeholder="contato@suaempresa.com.br"></label>
+          <label class="field"><span>Site</span><input data-k="site" placeholder="www.suaempresa.com.br"></label>
+        </div>
+        <label class="field"><span>Endereço completo</span><input data-k="endereco" autocomplete="street-address" placeholder="Rua, número, bairro, cidade/UF, CEP"></label>
+        <div class="row">
+          <label class="field"><span>Responsável (assina os documentos)</span><input data-k="responsavel" placeholder="Nome completo"></label>
+          <label class="field"><span>Cargo</span><input data-k="cargo" placeholder="Ex.: Sócio-administrador"></label>
+        </div>
+        <label class="field"><span>Foro padrão dos contratos</span><input data-k="foro" placeholder="Ex.: Campinas/SP"></label>
+      </section>
+
+      <section class="card cfg-card" id="fin" aria-labelledby="h-fin">
+        <h2 id="h-fin">Imposto, TechFX, Asaas e padrões</h2>
+        <p>Valores usados no cálculo do preço. Cada proposta pode ajustá-los individualmente.</p>
+        <div class="row">
+          <label class="field"><span>Idioma padrão dos documentos</span><select data-k="idioma"><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label>
+          <label class="field"><span>Moeda padrão</span><select data-k="moeda"><option value="BRL">Real (R$)</option><option value="USD">Dólar (US$)</option><option value="EUR">Euro (€)</option></select></label>
+        </div>
+        <label class="field"><span>Regime tributário</span>
+          <select data-k="regime">
+            <option value="0">MEI (DAS fixo, sem % sobre a venda)</option>
+            <option value="6">Simples Nacional · Anexo III (início: 6%)</option>
+            <option value="15.5">Simples Nacional · Anexo V (início: 15,5%)</option>
+            <option value="16.33">Lucro Presumido (≈ 13,33% federal + 3% ISS)</option>
+            <option value="custom">Personalizado</option>
+          </select></label>
+        <label class="field"><span>Imposto da nota fiscal (%)</span><input data-k="imp" inputmode="decimal"><small>Uso interno: entra no cálculo do líquido e não aparece para o cliente. No Simples a alíquota real depende do faturamento dos últimos 12 meses. Confirme com seu contador.</small></label>
+        <div class="row">
+          <label class="field"><span>Taxa TechFX (% sobre a cobrança)</span><input data-k="techfx" inputmode="decimal"></label>
+          <label class="field"><span>Outros custos (%)</span><input data-k="oc" inputmode="decimal"></label>
+        </div>
+        <h3 style="margin-top:20px;font-size:1rem">Taxas do Asaas</h3>
+        <label class="check"><input type="checkbox" data-k="promo"> Usar taxas promocionais (3 primeiros meses da conta Asaas)</label>
+        <div class="row">
+          <label class="field"><span>Pix (R$)</span><input data-k="fpix" inputmode="decimal"></label>
+          <label class="field"><span>Boleto (R$)</span><input data-k="fbol" inputmode="decimal"></label>
+        </div>
+        <div class="row three">
+          <label class="field"><span>Cartão 1x (%)</span><input data-k="c1" inputmode="decimal"></label>
+          <label class="field"><span>Cartão 2–6x (%)</span><input data-k="c2" inputmode="decimal"></label>
+          <label class="field"><span>Cartão 7–12x (%)</span><input data-k="c3" inputmode="decimal"></label>
+        </div>
+        <div class="row">
+          <label class="field"><span>Cartão: taxa fixa (R$)</span><input data-k="fcar" inputmode="decimal"></label>
+          <label class="field"><span>Antecipação (% ao mês)</span><input data-k="fant" inputmode="decimal"></label>
+        </div>
+        <label class="field"><span>Gateway padrão</span><select data-k="gateway"><option value="techfx">TechFX</option><option value="asaas">Asaas</option></select></label>
+        <label class="field"><span>Arredondar o preço calculado</span>
+          <select data-k="arr"><option value="0">Sem arredondar</option><option value="1">Para cima, ao inteiro</option><option value="10">Para cima, múltiplo de 10</option><option value="50">Para cima, múltiplo de 50</option></select></label>
+        <p class="hint">A taxa da TechFX é de 0,5% sobre o valor da cobrança. Confira as condições do seu contrato com a TechFX.</p>
+      </section>
+
+      <section class="card cfg-card wide" aria-labelledby="h-bkp">
+        <h2 id="h-bkp">Backup dos dados</h2>
+        <p>Propostas, contratos e configurações ficam salvos <b>apenas neste navegador</b>. Se você limpar os dados do navegador ou trocar de computador, eles somem. Exporte um backup de vez em quando e importe em outro lugar quando precisar.</p>
+        <div class="backup-actions">
+          <button class="btn btn-secondary" id="bk-export"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Exportar backup</button>
+          <label class="btn btn-secondary" style="cursor:pointer"><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg>Importar backup<input type="file" id="bk-import" accept="application/json,.json" class="sr-only"></label>
+          <button class="btn btn-danger" id="bk-wipe"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg>Apagar todos os dados</button>
+        </div>
+        <p class="hint" id="bk-info"></p>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/core/format.js"></script>
+<script src="../assets/js/core/store.js"></script>
+<script src="../assets/js/core/pricing.js"></script>
+<script src="../assets/js/core/i18n-dict.js"></script>
+<script src="../assets/js/core/i18n.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/modules/shell.js"></script>
+<script src="../assets/js/modules/config.js"></script>
+</body>
+</html>

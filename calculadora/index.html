@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora de preço · LDT Propostas &amp; Contratos</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#17181B">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/poppins-400.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<link rel="stylesheet" href="../assets/css/documents.css">
+</head>
+<body data-root="../">
+<noscript><p style="padding:24px">Este sistema precisa de JavaScript para funcionar.</p></noscript>
+<div id="content" tabindex="-1">
+  <div class="page">
+    <header class="page-head"><div><h1>Calculadora de preço</h1><p>Descubra quanto cobrar para receber o líquido que você quer, descontando imposto da nota fiscal e taxas da TechFX ou do Asaas. Uso interno: nada daqui vai para o cliente.</p></div></header>
+    <div class="cfg-grid" id="calc">
+      <section class="card cfg-card" aria-labelledby="h-in">
+        <h2 id="h-in">Dados do cálculo</h2>
+        <label class="field"><span>O valor abaixo é…</span>
+          <select data-k="modo"><option value="liq">Quanto quero receber (líquido): o sistema calcula o preço</option><option value="preco">O preço que vou cobrar: o sistema mostra quanto sobra</option></select></label>
+        <div class="row">
+          <label class="field"><span>Valor</span><input data-k="v1" placeholder="Ex.: 3500" inputmode="decimal"></label>
+          <label class="field"><span>Moeda</span><select data-k="moeda"><option value="BRL">Real (R$)</option><option value="USD">Dólar (US$)</option><option value="EUR">Euro (€)</option></select></label>
+        </div>
+        <label class="field"><span>Cobrança pelo</span><select data-k="gateway"><option value="techfx">TechFX (taxa % sobre a cobrança)</option><option value="asaas">Asaas (Pix, boleto ou cartão)</option></select></label>
+        <div id="asaasBox">
+          <div class="row">
+            <label class="field"><span>Forma de pagamento (Asaas)</span><select data-k="meio"><option value="pix">Pix</option><option value="boleto">Boleto</option><option value="cartao">Cartão de crédito</option></select></label>
+            <label class="field" id="f-parc"><span>Parcelas</span><select data-k="parc"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></label>
+          </div>
+          <label class="check" id="f-antic"><input type="checkbox" data-k="antic"> Antecipar recebimento (cobra por mês antecipado)</label>
+        </div>
+
+        <details class="acc"><summary><span class="step">+</span>Impostos e taxas<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+          <div class="row"><label class="field"><span>Imposto da nota fiscal (%)</span><input data-k="imp" inputmode="decimal"></label><label class="field"><span>Taxa TechFX (%)</span><input data-k="techfx" inputmode="decimal"></label></div>
+          <div class="row"><label class="field"><span>Outros custos (%)</span><input data-k="oc" inputmode="decimal"></label>
+          <label class="field"><span>Arredondar o preço calculado</span><select data-k="arr"><option value="0">Sem arredondar</option><option value="1">Para cima, ao inteiro</option><option value="10">Para cima, múltiplo de 10</option><option value="50">Para cima, múltiplo de 50</option></select></label></div>
+          <p class="sub">Taxas do Asaas</p>
+          <div class="row"><label class="field"><span>Pix (R$)</span><input data-k="fpix" inputmode="decimal"></label><label class="field"><span>Boleto (R$)</span><input data-k="fbol" inputmode="decimal"></label></div>
+          <div class="row three"><label class="field"><span>Cartão 1x (%)</span><input data-k="c1" inputmode="decimal"></label><label class="field"><span>Cartão 2–6x (%)</span><input data-k="c2" inputmode="decimal"></label><label class="field"><span>Cartão 7–12x (%)</span><input data-k="c3" inputmode="decimal"></label></div>
+          <div class="row"><label class="field"><span>Cartão: taxa fixa (R$)</span><input data-k="fcar" inputmode="decimal"></label><label class="field"><span>Antecipação (% ao mês)</span><input data-k="fant" inputmode="decimal"></label></div>
+          <p class="hint">Alterações aqui valem só para este cálculo. Para mudar os padrões, use Configurações.</p>
+        </div></details>
+      </section>
+      <section class="card cfg-card" aria-labelledby="h-out">
+        <h2 id="h-out">Resultado</h2>
+        <div id="calcOut" aria-live="polite"></div>
+        <button class="btn btn-primary btn-block" id="use" type="button" style="margin-top:16px"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg>Criar proposta com este valor</button>
+        <h3 style="margin:24px 0 4px;font-size:1rem">Comparar formas de cobrança</h3>
+        <div id="cmpOut"></div>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/core/format.js"></script>
+<script src="../assets/js/core/store.js"></script>
+<script src="../assets/js/core/docs-i18n.js"></script>
+<script src="../assets/js/core/pricing.js"></script>
+<script src="../assets/js/core/i18n-dict.js"></script>
+<script src="../assets/js/core/i18n.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/modules/shell.js"></script>
+<script src="../assets/js/modules/calculadora.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contrato · LDT Propostas &amp; Contratos</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#17181B">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/poppins-400.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<link rel="stylesheet" href="../assets/css/documents.css">
+</head>
+<body data-root="../">
+<noscript><p style="padding:24px">Este sistema precisa de JavaScript para funcionar.</p></noscript>
+<div id="content" class="editor" data-tab="form" tabindex="-1">
+  <header class="editor-bar">
+    <div>
+      <h1 class="bar-title" id="bar-title">Novo contrato</h1>
+      <p class="bar-sub"><span id="save-state">Rascunho automático</span><span class="pending" id="pending" hidden></span></p>
+    </div>
+    <div class="bar-actions">
+      <select id="status" class="status-select" aria-label="Status do contrato"></select>
+      <button class="btn btn-ghost" id="btn-novo" type="button"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Novo</button>
+      <button class="btn btn-secondary" id="btn-salvar" type="button"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>Salvar</button>
+      <button class="btn btn-primary" id="btn-pdf" type="button"><svg class="i" aria-hidden="true"><use href="#i-printer"/></svg>Gerar PDF</button>
+    </div>
+  </header>
+  <div class="mobile-tabs" role="group" aria-label="Alternar entre formulário e prévia">
+    <button class="chip" type="button" data-tab="form" aria-pressed="true">Formulário</button>
+    <button class="chip" type="button" data-tab="preview" aria-pressed="false">Prévia</button>
+  </div>
+  <div class="editor-body">
+    <section class="form-panel" id="form-panel" aria-label="Formulário do contrato">
+      <p class="hint" id="handoff-note" hidden style="margin:0 0 12px">Dados importados da proposta <b id="handoff-num"></b>. Confira cada campo.</p>
+
+      <details class="acc" open><summary><span class="step">1</span>Contratante (cliente)<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <div class="row">
+          <label class="field"><span>Idioma do documento</span><select data-k="idioma"><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label>
+          <label class="field"><span>Moeda</span><select data-k="moeda"><option value="BRL">Real (R$)</option><option value="USD">Dólar (US$)</option><option value="EUR">Euro (€)</option></select></label>
+        </div>
+        <label class="field"><span>Tipo</span><select data-k="cliTipo"><option value="pj">Pessoa jurídica (empresa)</option><option value="pf">Pessoa física (indivíduo)</option></select></label>
+        <label class="field"><span id="l-cliNome">Razão social / nome</span><input data-k="cliNome" autocomplete="off"></label>
+        <label class="field"><span id="l-cliDoc">CNPJ / CPF</span><input data-k="cliDoc" data-mask="doc" inputmode="numeric" autocomplete="off"><small id="cliDoc-hint"></small></label>
+        <label class="field"><span>Endereço completo</span><input data-k="cliEnd" autocomplete="off"></label>
+        <div class="row"><label class="field"><span>E-mail</span><input type="email" data-k="cliEmail"></label><label class="field"><span>Telefone</span><input data-k="cliTel" data-mask="phone" inputmode="tel"></label></div>
+        <div id="rep-box">
+          <label class="field"><span>Representante legal</span><input data-k="cliRep" autocomplete="off"></label>
+          <label class="field"><span>CPF do representante</span><input data-k="cliRepDoc" data-mask="doc" inputmode="numeric"></label>
+        </div>
+      </div></details>
+
+      <details class="acc"><summary><span class="step">2</span>Contrato e objeto<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <label class="field"><span>Título do serviço</span><input data-k="titulo"></label>
+        <div class="row three"><label class="field"><span>Nº</span><input data-k="num"></label><label class="field"><span>Data</span><input type="date" data-k="data"></label><label class="field"><span>Proposta Nº</span><input data-k="propostaNum" placeholder="opcional"></label></div>
+        <label class="field"><span>Escopo (um item por linha)</span><textarea data-k="escopo" rows="8"></textarea></label>
+        <div class="row"><label class="field"><span>Prazo de entrega (dias úteis)</span><input data-k="prazoDias" inputmode="numeric"></label><label class="field"><span>Cliente envia conteúdo em (dias)</span><input data-k="diasConteudo" inputmode="numeric"></label></div>
+      </div></details>
+
+      <details class="acc"><summary><span class="step">3</span>Preço e pagamento<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <label class="field"><span>Valor total</span><input data-k="valor" inputmode="decimal" placeholder="Ex.: 3.726,00"><small id="valor-ext"></small></label>
+        <label class="field"><span>Forma de pagamento</span><select data-k="pagTipo"><option value="pix">Pix à vista</option><option value="avista">À vista (Pix, boleto ou transferência)</option><option value="cartao">Cartão de crédito parcelado</option><option value="entrada">Entrada + parcelas</option><option value="outro">Outra (descrever)</option></select></label>
+        <div class="row"><label class="field" id="f-parc"><span>Nº de parcelas</span><input data-k="pagParcelas" inputmode="numeric"></label><label class="field" id="f-ent"><span>Entrada (%)</span><input data-k="pagEntradaPct" inputmode="decimal"></label></div>
+        <label class="field"><span>Texto livre de pagamento (opcional)</span><textarea data-k="pagTexto" rows="2" placeholder="Ex.: Saldo em boleto com vencimento todo dia 10"></textarea></label>
+        <div class="row"><label class="field"><span>Multa por atraso (%)</span><input data-k="multaMora" inputmode="decimal"></label><label class="field"><span>Juros (% ao mês)</span><input data-k="juros" inputmode="decimal"></label></div>
+        <label class="check"><input type="checkbox" data-k="incluiTaxas"> O valor já inclui tarifas da plataforma de pagamento</label>
+      </div></details>
+
+      <details class="acc"><summary><span class="step">4</span>Cláusulas<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <div class="row"><label class="field"><span>Rodadas de revisão</span><input data-k="revisoes" inputmode="numeric"></label><label class="field"><span>Aviso prévio de rescisão (dias)</span><input data-k="avisoPrevio" inputmode="numeric"></label></div>
+        <label class="field"><span>Multa de rescisão (% do valor)</span><input data-k="multaRescisao" inputmode="decimal"></label>
+        <label class="field"><span>Propriedade intelectual</span><select data-k="cessao"><option value="pago">Cessão ao cliente após o pagamento integral</option><option value="licenca">Licença de uso (a LDT mantém a titularidade)</option></select></label>
+        <label class="check"><input type="checkbox" data-k="portfolio"> A LDT pode exibir o projeto no portfólio</label>
+        <label class="check"><input type="checkbox" data-k="cHosp"> Incluir cláusula de hospedagem e domínio</label>
+        <label class="field"><span>Hospedagem</span><select data-k="hosp"><option value="cliente">Contratada pelo cliente</option><option value="incluso12">Inclusa por 12 meses</option><option value="nao">Não inclusa</option></select></label>
+        <label class="check"><input type="checkbox" data-k="cSuporte"> Incluir cláusula de suporte pós-entrega</label>
+        <label class="field"><span>Dias de suporte</span><input data-k="suporteDias" inputmode="numeric"></label>
+        <label class="check"><input type="checkbox" data-k="cConf"> Confidencialidade</label>
+        <label class="check"><input type="checkbox" data-k="cLgpd"> Proteção de dados (LGPD)</label>
+        <label class="check"><input type="checkbox" data-k="cLimit"> Responsabilidade por serviços de terceiros</label>
+        <label class="check"><input type="checkbox" data-k="cExtras"> Cláusulas adicionais</label>
+        <label class="field"><span>Texto das cláusulas adicionais (um parágrafo por linha)</span><textarea data-k="extras" rows="3"></textarea></label>
+      </div></details>
+
+      <details class="acc"><summary><span class="step">5</span>Foro e assinatura<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <label class="field"><span>Foro (comarca)</span><input data-k="foro"></label>
+        <label class="field"><span>Cidade da assinatura</span><input data-k="cidade"></label>
+        <label class="field"><span>Tipo de assinatura</span><select data-k="assin"><option value="eletronica">Eletrônica (Gov.br, Clicksign etc.)</option><option value="fisica">Física (impressa)</option></select></label>
+        <label class="check"><input type="checkbox" data-k="test"> Incluir duas testemunhas</label>
+      </div></details>
+
+      <p class="hint" style="margin-top:12px"><b>Atenção:</b> este modelo é um ponto de partida e não substitui a análise de um advogado. Para cliente pessoa física, o foro pode seguir regras de consumidor. Revise antes de usar.</p>
+    </section>
+
+    <section class="preview-panel" id="preview-panel" aria-label="Prévia do documento">
+      <div class="preview-toolbar"><div class="zoom" role="group" aria-label="Zoom da prévia">
+        <button type="button" id="z-out" aria-label="Diminuir zoom">−</button><output id="z-val" aria-live="polite">100%</output><button type="button" id="z-in" aria-label="Aumentar zoom">+</button><button type="button" id="z-fit">Ajustar</button>
+      </div></div>
+      <div class="doc-viewport" id="doc"></div>
+    </section>
+  </div>
+  <div class="measure" id="measure" aria-hidden="true"></div>
+</div>
+<script src="../assets/js/core/format.js"></script>
+<script src="../assets/js/core/store.js"></script>
+<script src="../assets/js/core/words.js"></script>
+<script src="../assets/js/core/docs-i18n.js"></script>
+<script src="../assets/js/core/pricing.js"></script>
+<script src="../assets/js/core/i18n-dict.js"></script>
+<script src="../assets/js/core/i18n.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/modules/shell.js"></script>
+<script src="../assets/js/modules/editor.js"></script>
+<script src="../assets/js/modules/contrato.js"></script>
+</body>
+</html>

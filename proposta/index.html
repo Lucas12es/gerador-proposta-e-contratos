@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proposta · LDT Propostas &amp; Contratos</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#17181B">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/poppins-400.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<link rel="stylesheet" href="../assets/css/documents.css">
+</head>
+<body data-root="../">
+<noscript><p style="padding:24px">Este sistema precisa de JavaScript para funcionar.</p></noscript>
+<div id="content" class="editor" data-tab="form" tabindex="-1">
+  <header class="editor-bar">
+    <div>
+      <h1 class="bar-title" id="bar-title">Nova proposta</h1>
+      <p class="bar-sub"><span id="save-state">Rascunho automático</span><span class="pending" id="pending" hidden></span></p>
+    </div>
+    <div class="bar-actions">
+      <select id="status" class="status-select" aria-label="Status da proposta"></select>
+      <button class="btn btn-ghost" id="btn-novo" type="button"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Nova</button>
+      <button class="btn btn-secondary" id="btn-contrato" type="button"><svg class="i" aria-hidden="true"><use href="#i-contract"/></svg>Gerar contrato</button>
+      <button class="btn btn-secondary" id="btn-salvar" type="button"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>Salvar</button>
+      <button class="btn btn-primary" id="btn-pdf" type="button"><svg class="i" aria-hidden="true"><use href="#i-printer"/></svg>Gerar PDF</button>
+    </div>
+  </header>
+  <div class="mobile-tabs" role="group" aria-label="Alternar entre formulário e prévia">
+    <button class="chip" type="button" data-tab="form" aria-pressed="true">Formulário</button>
+    <button class="chip" type="button" data-tab="preview" aria-pressed="false">Prévia</button>
+  </div>
+  <div class="editor-body">
+    <section class="form-panel" id="form-panel" aria-label="Formulário da proposta">
+
+      <details class="acc" open><summary><span class="step">1</span>Cliente e idioma<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <div class="row">
+          <label class="field"><span>Idioma do documento</span><select data-k="idioma"><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label>
+          <label class="field"><span>Moeda</span><select data-k="moeda"><option value="BRL">Real (R$)</option><option value="USD">Dólar (US$)</option><option value="EUR">Euro (€)</option></select></label>
+        </div>
+        <label class="field"><span>Nome do contato</span><input data-k="cliente" placeholder="Ex.: Maria Silva" autocomplete="off"></label>
+        <label class="field"><span>Empresa do cliente (opcional)</span><input data-k="cliEmp" placeholder="Ex.: Padaria Pão Quente" autocomplete="off"></label>
+      </div></details>
+
+      <details class="acc" open><summary><span class="step">2</span>Valor<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <label class="field"><span>Valor cobrado do cliente</span><input data-k="v1" placeholder="Ex.: 3744" inputmode="decimal"></label>
+        <a class="btn btn-secondary btn-block" href="../calculadora/index.html"><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg>Calcular preço na calculadora</a>
+        <p class="hint">Não sabe o preço? Na calculadora você informa quanto quer receber e ela calcula quanto cobrar, com imposto e taxas.</p>
+        <div class="row">
+          <label class="field"><span>Entrada (%)</span><input data-k="ent" placeholder="Ex.: 50" inputmode="decimal"></label>
+          <label class="field"><span>Parcelas do saldo</span><input data-k="pn" placeholder="Ex.: 3" inputmode="numeric"></label>
+        </div>
+      </div></details>
+
+      <details class="acc"><summary><span class="step">3</span>Projeto<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <label class="field"><span>Objetivo do cliente</span><textarea data-k="obj" rows="3"></textarea><small>Completa a frase "…precisa de um site que ___".</small></label>
+        <label class="field"><span>Escopo: Entregável | Detalhes (um por linha)</span><textarea data-k="escopo" rows="8"></textarea></label>
+        <div class="row"><label class="field"><span>Prazo total</span><input data-k="prazo"></label><label class="field"><span>Validade (dias)</span><input data-k="valid" inputmode="numeric"></label></div>
+      </div></details>
+
+      <details class="acc"><summary><span class="step">4</span>Opções avançadas<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
+        <label class="field"><span>Título da proposta</span><input data-k="titulo"></label>
+        <div class="row"><label class="field"><span>Nº</span><input data-k="num"></label><label class="field"><span>Data</span><input type="date" data-k="data"></label></div>
+        <label class="field"><span>Objetivos (um por linha)</span><textarea data-k="objs" rows="3"></textarea></label>
+        <label class="field"><span>Público-alvo (opcional)</span><textarea data-k="publico" rows="2"></textarea></label>
+        <label class="field"><span>Cronograma: Etapa | Prazo (um por linha)</span><textarea data-k="crono" rows="6"></textarea></label>
+        <label class="field"><span>Condições de pagamento (uma por linha, opcional)</span><textarea data-k="pag" rows="3"></textarea></label>
+        <label class="field"><span>Termos importantes (um por linha, opcional)</span><textarea data-k="termos" rows="3"></textarea></label>
+        <label class="field"><span>Observação sobre o valor (opcional)</span><textarea data-k="obsv" rows="2"></textarea></label>
+      </div></details>
+    </section>
+
+    <section class="preview-panel" id="preview-panel" aria-label="Prévia do documento">
+      <div class="preview-toolbar"><div class="zoom" role="group" aria-label="Zoom da prévia">
+        <button type="button" id="z-out" aria-label="Diminuir zoom">−</button><output id="z-val" aria-live="polite">100%</output><button type="button" id="z-in" aria-label="Aumentar zoom">+</button><button type="button" id="z-fit">Ajustar</button>
+      </div></div>
+      <div class="doc-viewport" id="doc"></div>
+    </section>
+  </div>
+</div>
+<script src="../assets/js/core/format.js"></script>
+<script src="../assets/js/core/store.js"></script>
+<script src="../assets/js/core/words.js"></script>
+<script src="../assets/js/core/docs-i18n.js"></script>
+<script src="../assets/js/core/pricing.js"></script>
+<script src="../assets/js/core/i18n-dict.js"></script>
+<script src="../assets/js/core/i18n.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/core/bridge.js"></script>
+<script src="../assets/js/modules/shell.js"></script>
+<script src="../assets/js/modules/editor.js"></script>
+<script src="../assets/js/modules/proposta.js"></script>
+</body>
+</html>

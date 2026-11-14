@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Documentos A4 (proposta e contrato) + impressão
+   ========================================================================== */
+.sheet{position:relative;width:210mm;height:297mm;background:#fff;color:var(--ink-800);overflow:hidden;flex:none;box-shadow:0 10px 30px -8px rgba(16,17,19,.3);font-size:9.5pt;line-height:1.55;break-after:page;page-break-after:always}
+.sheet:last-child{break-after:auto;page-break-after:auto}
+.sheet .topbar{position:absolute;inset:0 0 auto 0;height:5mm;background:var(--red-500)}
+.sheet .topbar::after{content:"";position:absolute;left:0;top:0;height:5mm;width:60mm;background:var(--ink-800)}
+.sheet .ph{position:absolute;left:20mm;right:20mm;top:11mm;display:flex;justify-content:space-between;align-items:center}
+.sheet .ph img{height:11mm;width:auto}
+.sheet .ph span{font-size:8pt;color:var(--gray-500);font-weight:500}
+.sheet .pf{position:absolute;left:20mm;right:20mm;bottom:10mm;border-top:1px solid var(--gray-200);padding-top:3mm;display:flex;justify-content:space-between;gap:8mm;font-size:7.5pt;color:var(--gray-500)}
+.sheet .pad{position:absolute;inset:0;padding:30mm 20mm 24mm}
+.sheet p,.sheet li,.sheet td{font-size:9.5pt;line-height:1.55}
+.sheet p{margin-bottom:2.5mm}
+.sheet h2{font-size:21pt;line-height:1.15;margin:1.5mm 0 5mm;color:var(--ink-900)}
+.sheet h3{font-size:10.5pt;margin:5mm 0 2mm;color:var(--ink-900)}
+.sheet .eb{font-size:8pt;font-weight:700;color:var(--red-500);letter-spacing:.12em;text-transform:uppercase}
+.sheet .sp{height:6mm}
+.sheet .note{font-size:7.5pt;color:var(--gray-500);margin-top:2mm}
+.sheet ul.b{list-style:none;padding:0;margin:0 0 3mm}
+.sheet ul.b li{position:relative;padding-left:5mm;margin-bottom:1.6mm}
+.sheet ul.b li::before{content:"";position:absolute;left:0;top:2.1mm;width:2mm;height:2mm;background:var(--red-500);transform:rotate(45deg)}
+.sheet table.t{width:100%;border-collapse:collapse;margin-top:2mm}
+.sheet table.t th{background:var(--ink-800);color:#fff;text-align:left;font-size:8.5pt;font-weight:500;padding:2.6mm 3mm}
+.sheet table.t td{padding:2.6mm 3mm;border-bottom:1px solid var(--gray-200);vertical-align:top}
+.sheet table.t td:first-child{font-weight:500;width:42mm}
+.sheet table.t td.r,.sheet table.t th.r{text-align:right;white-space:nowrap}
+.sheet .ph-mark,.ph-mark{background:#FEF3C7;color:#92400E;border-radius:2px;padding:0 2px}
+
+/* Capa */
+.sheet.cover .shapes{position:absolute;right:0;top:0;width:210mm;height:150mm}
+.sheet.cover .logo{position:absolute;left:20mm;top:22mm;height:26mm;width:auto}
+.sheet.cover .ttl{position:absolute;left:20mm;right:20mm;bottom:78mm}
+.sheet.cover .ttl .k{font-size:9pt;font-weight:700;color:var(--red-500);letter-spacing:.14em;text-transform:uppercase}
+.sheet.cover .ttl h1{font-size:38pt;line-height:1.05;color:var(--ink-900);margin:4mm 0 5mm}
+.sheet.cover .ttl .bar{width:28mm;height:2mm;background:var(--red-500)}
+.sheet.cover .client{position:absolute;left:20mm;right:20mm;bottom:22mm;background:var(--ink-800);color:#fff;padding:7mm 8mm;border-left:3mm solid var(--red-500)}
+.sheet.cover .client small{display:block;font-size:7.5pt;color:var(--gray-400);letter-spacing:.1em;text-transform:uppercase}
+.sheet.cover .client b.nm{display:block;font-size:14pt;margin:1mm 0 4mm;color:#fff}
+.sheet.cover .client .meta{display:flex;gap:10mm;font-size:8.5pt;color:var(--gray-300)}
+.sheet.cover .client .meta b{color:#fff}
+.sheet.cover .contact{position:absolute;left:20mm;right:20mm;bottom:10mm;font-size:7.5pt;color:var(--gray-500)}
+
+/* Investimento */
+.sheet .total{display:flex;justify-content:space-between;align-items:center;background:var(--ink-800);color:#fff;padding:6mm 8mm;border-left:3mm solid var(--red-500);margin-top:5mm}
+.sheet .total span{font-size:10pt;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.sheet .total b{font-size:21pt;color:#fff}
+.sheet .opts{display:grid;gap:4mm;margin-top:5mm}
+.sheet .opt{background:var(--gray-100);border-top:1.2mm solid var(--gray-500);padding:6mm}
+.sheet .opt.hl{background:var(--ink-800);color:#fff;border-top-color:var(--red-500)}
+.sheet .opt .ot{font-size:8pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red-500)}
+.sheet .opt.hl .ot{color:#FCA5A5}
+.sheet .opt .ov{font-size:23pt;font-weight:700;margin:2.5mm 0 1.5mm;line-height:1.15}
+.sheet .opt .od{font-size:8pt;color:var(--gray-300)}
+.sheet .opt ul{list-style:none;padding:0;margin:3mm 0 0}
+.sheet .opt li{font-size:10.5pt;padding:2mm 0;border-bottom:1px solid var(--gray-200)}
+.sheet .opt li:last-child{border-bottom:0}
+.sheet .opt li small{font-size:8pt;color:var(--gray-500)}
+
+/* Cronograma / aceite */
+.sheet .step{display:flex;align-items:center;border-bottom:1px solid var(--gray-200);padding:2.6mm 0}
+.sheet .step .n{width:7.5mm;height:7.5mm;background:var(--red-500);color:#fff;font-weight:700;font-size:9pt;display:flex;align-items:center;justify-content:center;margin-right:4mm}
+.sheet .step .a{flex:1;font-weight:500}
+.sheet .step .d{font-size:9pt;color:var(--gray-500)}
+.sheet .box{background:var(--gray-100);border-left:1.2mm solid var(--red-500);padding:5mm 6mm;margin:4mm 0}
+.sheet .box p{margin:0 0 3mm}.sheet .box p:last-child{margin:0}
+.sheet .cb{display:inline-block;width:3.2mm;height:3.2mm;border:.3mm solid var(--ink-800);margin-right:2mm;vertical-align:-0.5mm;background:#fff}
+.sheet .sig{display:flex;gap:14mm;margin-top:8mm}
+.sheet .sig div{flex:1;border-top:1px solid var(--ink-800);padding-top:2mm;font-size:8.5pt;line-height:1.4}
+.sheet .sig small{color:var(--gray-500);font-size:8pt}
+.sheet .thanks{position:absolute;left:20mm;right:20mm;bottom:24mm;background:var(--ink-800);color:#fff;padding:7mm 8mm;border-left:3mm solid var(--red-500)}
+.sheet .thanks b{display:block;font-size:12pt;color:#fff;margin-bottom:1mm}
+.sheet .thanks span{font-size:8.5pt;color:var(--gray-300)}
+
+/* Contrato */
+.sheet.contract .pad{padding:30mm 20mm 24mm}
+.sheet.contract .body{display:block}
+.sheet.contract .blk{padding-bottom:2.6mm;font-size:9.3pt;line-height:1.5;text-align:justify;hyphens:auto}
+.sheet.contract .blk p{margin:0;font-size:9.3pt;text-align:justify}
+.sheet.contract .blk ul{margin:1mm 0 0 5mm;padding:0}
+.sheet.contract .blk li{font-size:9.3pt;margin-bottom:.8mm;text-align:left}
+.sheet.contract .blk.title{text-align:center;padding-bottom:5mm}
+.sheet.contract .blk.title h1{font-size:15pt;letter-spacing:.02em;color:var(--ink-900);line-height:1.25}
+.sheet.contract .blk.title small{display:block;margin-top:1.5mm;font-size:8.5pt;color:var(--gray-500)}
+.sheet.contract .blk.cl{padding-top:3mm;padding-bottom:1.8mm}
+.sheet.contract .blk.cl h3{margin:0;font-size:9.6pt;letter-spacing:.03em;color:var(--red-600);text-transform:uppercase}
+.sheet.contract .sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:10mm 12mm;padding-top:8mm}
+.sheet.contract .sign-grid div{border-top:1px solid var(--ink-800);padding-top:1.6mm;font-size:8.5pt;line-height:1.4;text-align:left}
+.sheet.contract .sign-grid small{display:block;color:var(--gray-500);font-size:7.8pt}
+.sheet.contract .sign-grid .lbl{font-weight:700;font-size:7.8pt;letter-spacing:.08em;text-transform:uppercase;color:var(--red-600)}
+.measure{position:absolute;left:-9999px;top:0;visibility:hidden;width:170mm}
+.measure .blk{box-sizing:border-box}
+
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff!important}
+  .skip,.sidebar,.editor-bar,.mobile-tabs,.form-panel,.preview-toolbar,.toasts,.modal-back,.pending{display:none!important}
+  .app{display:block!important}
+  .main,.editor,.editor-body,.preview-panel{display:block!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:0!important;margin:0!important;background:none!important;border:0!important}
+  .doc-viewport{display:block!important;zoom:1!important;transform:none!important;gap:0!important}
+  .sheet{box-shadow:none!important;margin:0!important}
+  .ph-mark{background:none!important;color:inherit!important}
+}
