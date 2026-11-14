@@ -89,6 +89,10 @@
     return s;
   }
 
+  /** Troca para o idioma do documento todo texto que ainda é o padrão de QUALQUER idioma (textos editados são preservados). */
+  function localize(legacy) {
+    TEXT_KEYS.forEach(function (x) { if (D.isDef(x, st[x], legacy)) st[x] = D.DEF[st.idioma][x]; });
+  }
   function init() {
     L.shell.mount('proposta'); L.ia.mount('proposta');
     emp = S.empresa();
@@ -103,6 +107,7 @@
     if (src) for (k in src) st[k] = src[k];
     var hand = !doc ? S.handoff.take('proposta') : null;
     if (hand) for (k in hand) st[k] = hand[k];
+    localize(!doc);
     if (!st.data) st.data = F.today();
     if (!st.num) st.num = S.docs.nextNumber('proposta');
 
@@ -114,7 +119,7 @@
     var b = L.ui.bind(d.getElementById('form-panel'), st, function (key, e) {
       if (key === 'idioma') {
         var old = e.target.dataset.prev || idi;
-        TEXT_KEYS.forEach(function (x) { if (st[x] === D.DEF[old][x]) st[x] = D.DEF[st.idioma][x]; });
+        localize();
         e.target.dataset.prev = st.idioma; b.pull();
       }
       dirty = true; render(); saveDraft();

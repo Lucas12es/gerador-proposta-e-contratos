@@ -144,6 +144,11 @@
     return s;
   }
 
+  var LOC = [['titulo', 'titulo'], ['escopo', 'cEscopo'], ['mensalItens', 'mensalItens']];
+  /** Troca para o idioma do documento todo texto que ainda é o padrão de QUALQUER idioma (textos editados são preservados). */
+  function localize(legacy) {
+    LOC.forEach(function (k) { if (D.isDef(k[1], st[k[0]], legacy)) st[k[0]] = D.DEF[st.idioma][k[1]]; });
+  }
   function init() {
     L.shell.mount('contrato'); L.ia.mount('contrato');
     emp = S.empresa();
@@ -156,6 +161,7 @@
     var src = doc ? doc.dados : S.draft.get('contrato'), hand = !doc ? S.handoff.take('contrato') : null;
     if (src) for (k in src) st[k] = src[k];
     if (hand) { for (k in hand) st[k] = hand[k]; d.getElementById('handoff-note').hidden = false; d.getElementById('handoff-num').textContent = hand.propostaNum || ''; }
+    localize(!doc);
     if (!st.data) st.data = F.today();
     if (!st.num) st.num = S.docs.nextNumber('contrato');
     if (!st.foro) st.foro = emp.foro || '';
@@ -166,10 +172,7 @@
     var saveDraft = L.ui.debounce(function () { if (!doc) S.draft.set('contrato', st); d.getElementById('save-state').textContent = t(doc ? (dirty ? 'Alterações não salvas' : 'Salvo') : 'Rascunho automático'); }, 400);
     var bind = L.ui.bind(d.getElementById('form-panel'), st, function (key, e) {
       if (key === 'idioma') {
-        var old = e.target.dataset.prev || 'pt';
-        if (st.titulo === D.DEF[old].titulo) st.titulo = D.DEF[st.idioma].titulo;
-        if (st.escopo === D.DEF[old].cEscopo) st.escopo = D.DEF[st.idioma].cEscopo;
-        if (st.mensalItens === D.DEF[old].mensalItens) st.mensalItens = D.DEF[st.idioma].mensalItens;
+        localize();
         e.target.dataset.prev = st.idioma; bind.pull();
       }
       dirty = true; render(); saveDraft();
