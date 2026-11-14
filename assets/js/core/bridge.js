@@ -17,6 +17,7 @@
       cliNome: (d.cliEmp || d.cliente || '').trim(),
       cliRep: pj ? (d.cliente || '').trim() : '',
       escopo: F.pairs(d.escopo).map(function (r) { return r[1] ? r[0] + ': ' + r[1] : r[0]; }).join('\n'),
+      mensal: d.mensal || '', cMensal: F.num(d.mensal) > 0 ? '1' : '', mensalItens: d.mensalItens || D.DEF[idi].mensalItens,
       prazoDias: prazoNum,
       valor: total > 0 ? F.money(total) : '',
       pagTipo: tipo, pagParcelas: String(parcelas), pagEntradaPct: tipo === 'entrada' ? String(d.ent || '') : '', pagTexto: ''

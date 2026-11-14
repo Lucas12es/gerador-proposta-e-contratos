@@ -26,6 +26,9 @@
   /* ---------- Proposta ---------- */
   var P = {
     pt: {
+      sMain: 'Implantação e desenvolvimento do site', sMonth: 'Mensalidade · hospedagem e manutenção', totalOne: 'Implantação do site · pagamento único', totalMonth: 'Mensalidade · hospedagem e manutenção', perMonth: '/mês',
+      monthNote: 'A implantação é cobrada uma única vez. A hospedagem e a manutenção são cobradas mensalmente, a partir da publicação do site, garantindo a continuidade dos serviços e a permanência do site no ar.',
+      acceptM: ' e a mensalidade de <b>{m}</b>',
       doc: 'Proposta', kicker: 'Proposta comercial · Nº {num}', prepared: 'Preparada para', date: 'Data', valid: 'Validade', days: 'dias', ac: 'A/C',
       client: '[Cliente]', goal: '[objetivo]', amount: '[valor]',
       e1: '01 · Apresentação', h1: 'Entendendo o seu projeto',
@@ -43,6 +46,9 @@
       place: 'Local e data', thanks: 'Obrigado pela confiança!', questions: 'Dúvidas? Fale conosco: {c}', page: 'Página', clientWord: 'Cliente'
     },
     en: {
+      sMain: 'Website implementation and development', sMonth: 'Monthly fee · hosting and maintenance', totalOne: 'Website implementation · one-time payment', totalMonth: 'Monthly fee · hosting and maintenance', perMonth: '/month',
+      monthNote: 'The implementation is charged once. Hosting and maintenance are charged monthly, from the day the website goes live, ensuring continuity of the services and keeping the website online.',
+      acceptM: ' and the monthly fee of <b>{m}</b>',
       doc: 'Proposal', kicker: 'Commercial proposal · No. {num}', prepared: 'Prepared for', date: 'Date', valid: 'Valid for', days: 'days', ac: 'Attn',
       client: '[Client]', goal: '[goal]', amount: '[amount]',
       e1: '01 · Introduction', h1: 'Understanding your project',
@@ -60,6 +66,9 @@
       place: 'Place and date', thanks: 'Thank you for your trust!', questions: 'Questions? Contact us: {c}', page: 'Page', clientWord: 'Client'
     },
     es: {
+      sMain: 'Implantación y desarrollo del sitio', sMonth: 'Mensualidad · alojamiento y mantenimiento', totalOne: 'Implantación del sitio · pago único', totalMonth: 'Mensualidad · alojamiento y mantenimiento', perMonth: '/mes',
+      monthNote: 'La implantación se cobra una sola vez. El alojamiento y el mantenimiento se cobran mensualmente, a partir de la publicación del sitio, garantizando la continuidad de los servicios y la permanencia del sitio en línea.',
+      acceptM: ' y la mensualidad de <b>{m}</b>',
       doc: 'Propuesta', kicker: 'Propuesta comercial · N.º {num}', prepared: 'Preparada para', date: 'Fecha', valid: 'Validez', days: 'días', ac: 'Att.',
       client: '[Cliente]', goal: '[objetivo]', amount: '[importe]',
       e1: '01 · Presentación', h1: 'Entendiendo su proyecto',
@@ -81,37 +90,47 @@
   /* Textos padrão do projeto, por idioma. Se o campo ainda tem o padrão de um idioma, troca junto com o idioma. */
   var DEF = {
     pt: {
-      titulo: 'Criação de Website', obj: 'gerar contatos qualificados e fortalecer a presença da marca na internet',
-      objs: 'Transmitir credibilidade e profissionalismo\nFacilitar o contato via WhatsApp e formulário\nAparecer melhor nas buscas do Google',
-      escopo: 'Design exclusivo | Layout personalizado alinhado à identidade visual, versões desktop e mobile\nDesenvolvimento | Site responsivo, rápido e otimizado para todos os dispositivos\nPáginas | Home, Sobre, Serviços, Portfólio e Contato\nSEO básico | Títulos, descrições, estrutura e velocidade otimizados para o Google\nIntegrações | WhatsApp, formulário de contato, Google Analytics e redes sociais\nHospedagem e domínio | Incluso por 12 meses\nTreinamento | Orientação para atualizar os conteúdos sozinho\nSuporte pós-entrega | 30 dias de ajustes e correções sem custo',
-      crono: 'Briefing e planejamento | 2 dias\nDesign / protótipo | 5 dias\nAprovação do layout | 2 dias\nDesenvolvimento | 7 dias\nTestes e ajustes | 3 dias\nPublicação no ar | 1 dia',
-      prazo: '20 dias úteis',
-      cEscopo: 'Design exclusivo da interface, versões desktop e mobile\nDesenvolvimento de site responsivo\nSEO básico\nIntegração com WhatsApp e formulário de contato'
+      titulo: 'Criação de Site Institucional',
+      obj: 'fortaleça a presença online da empresa, facilite o contato com os clientes e amplie as oportunidades comerciais',
+      objs: 'Apresentar a empresa, seus produtos e serviços de forma profissional\nFacilitar o contato dos clientes, inclusive pelo WhatsApp\nFortalecer a presença online e ampliar as oportunidades comerciais',
+      escopo: 'Planejamento e estrutura | Planejamento e organização das páginas do site\nLayout personalizado e responsivo | Desenvolvido para computadores, tablets e celulares\nApresentação institucional | Empresa, produtos e serviços apresentados de forma profissional\nConteúdos e imagens | Organização de textos, imagens e informações comerciais\nCanais de contato | Botões de contato e integração com WhatsApp\nSEO básico | Configuração básica para os mecanismos de busca\nDomínio e publicação | Configuração do domínio e publicação no ambiente de hospedagem\nTestes antes da publicação | Funcionamento, navegação e responsividade',
+      mensalItens: 'Hospedagem e infraestrutura para manter o site online\nMonitoramento básico de disponibilidade e funcionamento\nManutenção técnica preventiva\nSuporte técnico para necessidades relacionadas ao site\nPequenos ajustes e alterações de conteúdo, conforme o escopo contratado\nAtualizações técnicas e correções necessárias\nRotinas de backup e proteção dos arquivos do site',
+      crono: 'Aprovação da prévia | Concluída\nAjustes e conteúdo final | 3 dias\nDomínio e hospedagem | 1 dia\nTestes de funcionamento e responsividade | 1 dia\nSite no ar | 1 dia',
+      prazo: '6 dias úteis',
+      cEscopo: 'Planejamento e estruturação das páginas do site\nLayout personalizado e responsivo, para computadores, tablets e celulares\nApresentação institucional da empresa, produtos e serviços\nOrganização de conteúdos, imagens e informações comerciais\nBotões e canais de contato, com integração ao WhatsApp\nConfiguração básica de SEO\nConfiguração de domínio e publicação no ambiente de hospedagem\nTestes de funcionamento, navegação e responsividade antes da publicação'
     },
     en: {
-      titulo: 'Website Development', obj: 'generates qualified leads and strengthens the brand’s presence online',
-      objs: 'Convey credibility and professionalism\nMake contact easy via WhatsApp and contact form\nRank better in Google searches',
-      escopo: 'Custom design | Tailored layout aligned with your visual identity, desktop and mobile versions\nDevelopment | Responsive, fast website optimized for all devices\nPages | Home, About, Services, Portfolio and Contact\nBasic SEO | Titles, descriptions, structure and speed optimized for Google\nIntegrations | WhatsApp, contact form, Google Analytics and social media\nHosting and domain | Included for 12 months\nTraining | Guidance to update the content yourself\nPost-delivery support | 30 days of free adjustments and fixes',
-      crono: 'Briefing and planning | 2 days\nDesign / prototype | 5 days\nLayout approval | 2 days\nDevelopment | 7 days\nTesting and adjustments | 3 days\nGo live | 1 day',
-      prazo: '20 business days',
-      cEscopo: 'Custom interface design, desktop and mobile versions\nDevelopment of a responsive website\nBasic SEO\nWhatsApp and contact form integration'
+      titulo: 'Corporate Website Development',
+      obj: 'strengthens the company’s online presence, makes it easier for customers to get in touch and expands its business opportunities',
+      objs: 'Present the company, its products and services professionally\nMake it easy for customers to get in touch, including via WhatsApp\nStrengthen the online presence and expand business opportunities',
+      escopo: 'Planning and structure | Planning and organization of the website pages\nCustom responsive layout | Built for computers, tablets and phones\nCorporate presentation | Company, products and services presented professionally\nContent and images | Organization of texts, images and commercial information\nContact channels | Contact buttons and WhatsApp integration\nBasic SEO | Basic setup for search engines\nDomain and publishing | Domain setup and publishing to the hosting environment\nPre-launch testing | Functionality, navigation and responsiveness',
+      mensalItens: 'Hosting and infrastructure to keep the website online\nBasic availability and performance monitoring\nPreventive technical maintenance\nTechnical support for website-related needs\nMinor adjustments and content changes, within the contracted scope\nTechnical updates and necessary fixes\nBackup routines and protection of the website files',
+      crono: 'Preview approval | Completed\nAdjustments and final content | 3 days\nDomain and hosting | 1 day\nFunctionality and responsiveness testing | 1 day\nGo live | 1 day',
+      prazo: '6 business days',
+      cEscopo: 'Planning and structuring of the website pages\nCustom responsive layout for computers, tablets and phones\nCorporate presentation of the company, products and services\nOrganization of content, images and commercial information\nContact buttons and channels, with WhatsApp integration\nBasic SEO setup\nDomain setup and publishing to the hosting environment\nFunctionality, navigation and responsiveness testing before launch'
     },
     es: {
-      titulo: 'Creación de Sitio Web', obj: 'genere contactos cualificados y refuerce la presencia de la marca en internet',
-      objs: 'Transmitir credibilidad y profesionalismo\nFacilitar el contacto por WhatsApp y formulario\nAparecer mejor en las búsquedas de Google',
-      escopo: 'Diseño exclusivo | Diseño personalizado alineado con la identidad visual, versiones de escritorio y móvil\nDesarrollo | Sitio responsivo, rápido y optimizado para todos los dispositivos\nPáginas | Inicio, Nosotros, Servicios, Portafolio y Contacto\nSEO básico | Títulos, descripciones, estructura y velocidad optimizados para Google\nIntegraciones | WhatsApp, formulario de contacto, Google Analytics y redes sociales\nAlojamiento y dominio | Incluido por 12 meses\nCapacitación | Orientación para actualizar los contenidos usted mismo\nSoporte posterior | 30 días de ajustes y correcciones sin costo',
-      crono: 'Briefing y planificación | 2 días\nDiseño / prototipo | 5 días\nAprobación del diseño | 2 días\nDesarrollo | 7 días\nPruebas y ajustes | 3 días\nPublicación | 1 día',
-      prazo: '20 días hábiles',
-      cEscopo: 'Diseño exclusivo de la interfaz, versiones de escritorio y móvil\nDesarrollo de un sitio web responsivo\nSEO básico\nIntegración con WhatsApp y formulario de contacto'
+      titulo: 'Creación de Sitio Web Institucional',
+      obj: 'fortalezca la presencia online de la empresa, facilite el contacto con los clientes y amplíe las oportunidades comerciales',
+      objs: 'Presentar la empresa, sus productos y servicios de forma profesional\nFacilitar el contacto de los clientes, también por WhatsApp\nFortalecer la presencia online y ampliar las oportunidades comerciales',
+      escopo: 'Planificación y estructura | Planificación y organización de las páginas del sitio\nDiseño personalizado y responsivo | Desarrollado para ordenadores, tabletas y móviles\nPresentación institucional | Empresa, productos y servicios presentados de forma profesional\nContenidos e imágenes | Organización de textos, imágenes e información comercial\nCanales de contacto | Botones de contacto e integración con WhatsApp\nSEO básico | Configuración básica para los motores de búsqueda\nDominio y publicación | Configuración del dominio y publicación en el entorno de alojamiento\nPruebas antes de publicar | Funcionamiento, navegación y adaptabilidad',
+      mensalItens: 'Alojamiento e infraestructura para mantener el sitio en línea\nMonitoreo básico de disponibilidad y funcionamiento\nMantenimiento técnico preventivo\nSoporte técnico para necesidades relacionadas con el sitio\nPequeños ajustes y cambios de contenido, según el alcance contratado\nActualizaciones técnicas y correcciones necesarias\nRutinas de copia de seguridad y protección de los archivos del sitio',
+      crono: 'Aprobación de la vista previa | Completada\nAjustes y contenido final | 3 días\nDominio y alojamiento | 1 día\nPruebas de funcionamiento y adaptabilidad | 1 día\nSitio en línea | 1 día',
+      prazo: '6 días hábiles',
+      cEscopo: 'Planificación y estructuración de las páginas del sitio\nDiseño personalizado y responsivo para ordenadores, tabletas y móviles\nPresentación institucional de la empresa, productos y servicios\nOrganización de contenidos, imágenes e información comercial\nBotones y canales de contacto, con integración con WhatsApp\nConfiguración básica de SEO\nConfiguración del dominio y publicación en el entorno de alojamiento\nPruebas de funcionamiento, navegación y adaptabilidad antes de publicar'
     }
   };
 
   /* ---------- Contrato ---------- */
   var C = {
     pt: {
+      t_mens: 'DA MENSALIDADE (HOSPEDAGEM E MANUTENÇÃO)',
+      mens1: 'Após a publicação do site, a CONTRATANTE pagará à CONTRATADA a mensalidade de <b>{v}</b>, cobrada mensalmente, referente à hospedagem e à manutenção do site, que compreende:',
+      mens2: 'A mensalidade é recorrente e passa a ser devida a partir da publicação do site. Aplicam-se a ela as mesmas regras de multa e juros por atraso da cláusula do preço e do pagamento. Alterações e serviços além do escopo contratado poderão ser orçados à parte.',
+      mens3: 'A CONTRATANTE poderá encerrar a mensalidade mediante aviso prévio de <b>{d}</b>. Encerrada a mensalidade, o site poderá ser retirado do ar ao término do período já pago.',
       A: 'CONTRATADA', B: 'CONTRATANTE', clause: 'CLÁUSULA',
       title: 'CONTRATO DE PRESTAÇÃO DE SERVIÇOS', no: 'Nº', proposal: 'Proposta', doc: 'Contrato', page: 'Página', of: 'de',
-      ph: { cliPJ: '[razão social do cliente]', cliPF: '[nome do cliente]', cnpj: '[CNPJ]', cpf: '[CPF]', end: '[endereço completo]', rep: '[representante legal]', repDoc: '[CPF do representante]', scope: '[descreva o escopo]', prazo: '[prazo em dias úteis]', valor: '[valor total]', foro: '[comarca]', cidade: '[cidade]', cli: '[cliente]' },
+      ph: { mensal: '[valor da mensalidade]', cliPJ: '[razão social do cliente]', cliPF: '[nome do cliente]', cnpj: '[CNPJ]', cpf: '[CPF]', end: '[endereço completo]', rep: '[representante legal]', repDoc: '[CPF do representante]', scope: '[descreva o escopo]', prazo: '[prazo em dias úteis]', valor: '[valor total]', foro: '[comarca]', cidade: '[cidade]', cli: '[cliente]' },
       p1: 'Pelo presente instrumento particular, de um lado <b>{emp}</b>{cnpj}{sede}{rep}, doravante denominada <b>CONTRATADA</b>;',
       cnpj: ', inscrita no CNPJ sob o nº <b>{v}</b>', sede: ', com sede em {v}', rep: ', neste ato representada por <b>{n}</b>{c}',
       cliPJ: '<b>{nome}</b>, inscrita no CNPJ sob o nº <b>{doc}</b>, com endereço em {end}, neste ato representada por <b>{rep}</b>, CPF nº {repDoc}',
@@ -156,9 +175,13 @@
       sA: 'Contratada', sB: 'Contratante', w1: 'Testemunha 1', w2: 'Testemunha 2', name: 'Nome:', tax: 'CPF:', taxPJ: 'CNPJ', taxPF: 'CPF'
     },
     en: {
+      t_mens: 'MONTHLY FEE (HOSTING AND MAINTENANCE)',
+      mens1: 'After the website goes live, the CLIENT will pay the PROVIDER a monthly fee of <b>{v}</b>, charged monthly, for hosting and maintenance of the website, which comprises:',
+      mens2: 'The monthly fee is recurring and becomes due from the day the website goes live. The same late-payment penalty and interest rules of the price and payment clause apply to it. Changes and services beyond the contracted scope may be quoted separately.',
+      mens3: 'The CLIENT may end the monthly service upon <b>{d}</b> prior notice. Once ended, the website may be taken offline at the end of the period already paid.',
       A: 'PROVIDER', B: 'CLIENT', clause: 'CLAUSE',
       title: 'SERVICES AGREEMENT', no: 'No.', proposal: 'Proposal', doc: 'Agreement', page: 'Page', of: 'of',
-      ph: { cliPJ: '[client company name]', cliPF: '[client name]', cnpj: '[company tax ID]', cpf: '[ID / tax number]', end: '[full address]', rep: '[legal representative]', repDoc: '[representative’s ID]', scope: '[describe the scope]', prazo: '[deadline in business days]', valor: '[total amount]', foro: '[jurisdiction]', cidade: '[city]', cli: '[client]' },
+      ph: { mensal: '[monthly fee]', cliPJ: '[client company name]', cliPF: '[client name]', cnpj: '[company tax ID]', cpf: '[ID / tax number]', end: '[full address]', rep: '[legal representative]', repDoc: '[representative’s ID]', scope: '[describe the scope]', prazo: '[deadline in business days]', valor: '[total amount]', foro: '[jurisdiction]', cidade: '[city]', cli: '[client]' },
       p1: 'This private agreement is entered into by and between <b>{emp}</b>{cnpj}{sede}{rep}, hereinafter the <b>PROVIDER</b>;',
       cnpj: ', registered under CNPJ no. <b>{v}</b>', sede: ', with offices at {v}', rep: ', herein represented by <b>{n}</b>{c}',
       cliPJ: '<b>{nome}</b>, tax ID <b>{doc}</b>, located at {end}, herein represented by <b>{rep}</b>, ID no. {repDoc}',
@@ -203,9 +226,13 @@
       sA: 'Provider', sB: 'Client', w1: 'Witness 1', w2: 'Witness 2', name: 'Name:', tax: 'ID:', taxPJ: 'Tax ID', taxPF: 'ID'
     },
     es: {
+      t_mens: 'DE LA MENSUALIDAD (ALOJAMIENTO Y MANTENIMIENTO)',
+      mens1: 'Tras la publicación del sitio, el CLIENTE pagará a la CONTRATISTA una mensualidad de <b>{v}</b>, cobrada mensualmente, por el alojamiento y el mantenimiento del sitio, que comprende:',
+      mens2: 'La mensualidad es recurrente y es exigible desde la publicación del sitio. Se le aplican las mismas reglas de multa e intereses por demora de la cláusula del precio y del pago. Los cambios y servicios fuera del alcance contratado podrán presupuestarse aparte.',
+      mens3: 'El CLIENTE podrá dar por terminada la mensualidad con un preaviso de <b>{d}</b>. Terminada la mensualidad, el sitio podrá ser dado de baja al término del período ya pagado.',
       A: 'CONTRATISTA', B: 'CLIENTE', clause: 'CLÁUSULA',
       title: 'CONTRATO DE PRESTACIÓN DE SERVICIOS', no: 'N.º', proposal: 'Propuesta', doc: 'Contrato', page: 'Página', of: 'de',
-      ph: { cliPJ: '[razón social del cliente]', cliPF: '[nombre del cliente]', cnpj: '[identificación fiscal]', cpf: '[documento de identidad]', end: '[dirección completa]', rep: '[representante legal]', repDoc: '[documento del representante]', scope: '[describa el alcance]', prazo: '[plazo en días hábiles]', valor: '[importe total]', foro: '[jurisdicción]', cidade: '[ciudad]', cli: '[cliente]' },
+      ph: { mensal: '[valor de la mensualidad]', cliPJ: '[razón social del cliente]', cliPF: '[nombre del cliente]', cnpj: '[identificación fiscal]', cpf: '[documento de identidad]', end: '[dirección completa]', rep: '[representante legal]', repDoc: '[documento del representante]', scope: '[describa el alcance]', prazo: '[plazo en días hábiles]', valor: '[importe total]', foro: '[jurisdicción]', cidade: '[ciudad]', cli: '[cliente]' },
       p1: 'Por el presente contrato privado, de una parte <b>{emp}</b>{cnpj}{sede}{rep}, en adelante la <b>CONTRATISTA</b>;',
       cnpj: ', inscrita con CNPJ n.º <b>{v}</b>', sede: ', con domicilio en {v}', rep: ', representada en este acto por <b>{n}</b>{c}',
       cliPJ: '<b>{nome}</b>, identificación fiscal <b>{doc}</b>, con domicilio en {end}, representada en este acto por <b>{rep}</b>, documento n.º {repDoc}',

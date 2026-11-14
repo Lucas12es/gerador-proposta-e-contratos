@@ -61,7 +61,10 @@
       </div></details>
 
       <details class="acc"><summary><span class="step">3</span>Preço e pagamento<svg class="i chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="acc-body">
-        <label class="field"><span>Valor total</span><input data-k="valor" inputmode="decimal" placeholder="Ex.: 3.726,00"><small id="valor-ext"></small></label>
+        <label class="field"><span>Valor da implantação (pagamento único)</span><input data-k="valor" inputmode="decimal" placeholder="Ex.: 1.500,00"><small id="valor-ext"></small></label>
+        <label class="check"><input type="checkbox" data-k="cMensal"> Incluir mensalidade (hospedagem e manutenção)</label>
+        <label class="field"><span>Valor da mensalidade</span><input data-k="mensal" inputmode="decimal" placeholder="Ex.: 99,00"></label>
+        <label class="field"><span>Mensalidade: o que está incluso (um item por linha)</span><textarea data-k="mensalItens" rows="6"></textarea></label>
         <label class="field"><span>Forma de pagamento</span><select data-k="pagTipo"><option value="pix">Pix à vista</option><option value="avista">À vista (Pix, boleto ou transferência)</option><option value="cartao">Cartão de crédito parcelado</option><option value="entrada">Entrada + parcelas</option><option value="outro">Outra (descrever)</option></select></label>
         <div class="row"><label class="field" id="f-parc"><span>Nº de parcelas</span><input data-k="pagParcelas" inputmode="numeric"></label><label class="field" id="f-ent"><span>Entrada (%)</span><input data-k="pagEntradaPct" inputmode="decimal"></label></div>
         <label class="field"><span>Texto livre de pagamento (opcional)</span><textarea data-k="pagTexto" rows="2" placeholder="Ex.: Saldo em boleto com vencimento todo dia 10"></textarea></label>

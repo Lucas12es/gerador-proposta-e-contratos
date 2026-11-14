@@ -154,3 +154,7 @@ table.ct td{padding:6px 8px;border-bottom:1px solid var(--gray-200)}
 .ia-code{display:flex;gap:6px}.ia-code input{flex:1;padding:8px;border:1px solid var(--gray-300);border-radius:var(--r-sm)}
 .ia-note{margin:0;padding:0 12px 10px;font-size:var(--fs-xs);color:var(--gray-500)}
 @media print{.ia-fab,.ia-box{display:none!important}}
+
+.ia-tabs{display:flex;gap:4px;padding:8px 12px 0;background:#fff}
+.ia-tabs button{flex:1;padding:6px 8px;border:1px solid var(--gray-300);border-radius:var(--r-pill);background:#fff;font:500 var(--fs-xs) var(--font-sans);cursor:pointer}
+.ia-tabs button[aria-pressed=true]{background:var(--ink-900);border-color:var(--ink-900);color:#fff}

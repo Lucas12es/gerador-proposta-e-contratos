@@ -72,7 +72,7 @@ Como o sistema guarda dados privados de clientes **no navegador de quem usa**, c
 
 Botão **Assistente IA** nas telas de Proposta, Contrato e Calculadora: você descreve o pedido em texto e a IA preenche os campos.
 
-- O navegador chama `POST /api/ia` (arquivo `worker.js`), que fala com o Groq (`llama-3.3-70b-versatile`). A chave fica só no servidor.
+- O navegador chama `POST /api/ia` (arquivo `worker.js`), que fala com o Groq (`openai/gpt-oss-120b`, com reserva `openai/gpt-oss-20b`). A chave fica só no servidor.
 - **Configuração no Cloudflare:** projeto → Settings → Variables and Secrets → adicionar secret `GROQ_API_KEY` (tipo *Secret*) com a chave do Groq. Faça um novo deploy.
 - Opcional: secret `ACCESS_CODE` — se definido, a IA pede esse código na primeira vez (guardado no navegador). Recomendado, pois sem ele qualquer pessoa com o link do site poderia usar sua cota.
 - Local: crie `.dev.vars` com `GROQ_API_KEY=...` e rode `npx wrangler dev` (o arquivo é ignorado pelo Git).

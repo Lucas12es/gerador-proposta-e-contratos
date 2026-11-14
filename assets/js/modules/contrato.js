@@ -7,9 +7,9 @@
     idioma: 'pt', moeda: 'BRL', cliTipo: 'pj', cliNome: '', cliDoc: '', cliEnd: '', cliEmail: '', cliTel: '', cliRep: '', cliRepDoc: '',
     titulo: '', num: '', data: '', propostaNum: '', escopo: '',
     prazoDias: '20', diasConteudo: '5',
-    valor: '', pagTipo: 'avista', pagParcelas: '1', pagEntradaPct: '', pagTexto: '', multaMora: '2', juros: '1', incluiTaxas: '',
+    valor: '', mensal: '', cMensal: '1', mensalItens: '', pagTipo: 'avista', pagParcelas: '1', pagEntradaPct: '', pagTexto: '', multaMora: '2', juros: '1', incluiTaxas: '',
     revisoes: '2', avisoPrevio: '7', multaRescisao: '20', cessao: 'pago', portfolio: '',
-    cHosp: '1', hosp: 'cliente', cSuporte: '1', suporteDias: '30', cConf: '1', cLgpd: '1', cLimit: '1', cExtras: '', extras: '',
+    cHosp: '', hosp: 'cliente', cSuporte: '1', suporteDias: '30', cConf: '1', cLgpd: '1', cLimit: '1', cExtras: '', extras: '',
     foro: '', cidade: '', assin: 'eletronica', test: ''
   };
   var st, emp, doc = null, dirty = false, pending = 0;
@@ -63,7 +63,12 @@
     p(fill(T.late, { m: esc(st.multaMora || '0'), j: esc(st.juros || '0') }));
 
     cl(T.t_rev); p(fill(T.rev, { n: np(st.revisoes || '2', Number(st.revisoes) === 1 ? T.round : T.rounds) }));
-    if (st.cHosp === '1') { cl(T.t_host); p(st.hosp === 'incluso12' ? T.host_i : st.hosp === 'nao' ? T.host_n : T.host_c); }
+    if (st.cMensal === '1') {
+      var mv = F.num(st.mensal);
+      cl(T.t_mens); p(fill(T.mens1, { v: mv > 0 ? money(mv) + ' (' + esc(W.cur(mv, moeda, lang)) + ')' : ph(PH.mensal) }));
+      var mi = F.lines(st.mensalItens); if (mi.length) ul(mi.map(esc));
+      p(T.mens2); p(fill(T.mens3, { d: np(st.avisoPrevio || '7', T.dd) }));
+    } else if (st.cHosp === '1') { cl(T.t_host); p(st.hosp === 'incluso12' ? T.host_i : st.hosp === 'nao' ? T.host_n : T.host_c); }
     cl(T.t_ip); p(st.cessao === 'licenca' ? T.ip_l : T.ip_c); p(st.portfolio === '1' ? T.port_y : T.port_n);
     if (st.cSuporte === '1') { cl(T.t_sup); p(fill(T.sup, { d: np(st.suporteDias || '30', T.dd) })); }
     if (st.cConf === '1') { cl(T.t_conf); p(T.conf); }
@@ -147,7 +152,7 @@
     var fin = S.fin(), k; st = {};
     for (k in DEFAULTS) st[k] = DEFAULTS[k];
     st.idioma = fin.idioma || 'pt'; st.moeda = fin.moeda || 'BRL';
-    st.titulo = D.DEF[st.idioma].titulo; st.escopo = D.DEF[st.idioma].cEscopo;
+    st.titulo = D.DEF[st.idioma].titulo; st.escopo = D.DEF[st.idioma].cEscopo; st.mensalItens = D.DEF[st.idioma].mensalItens;
     var src = doc ? doc.dados : S.draft.get('contrato'), hand = !doc ? S.handoff.take('contrato') : null;
     if (src) for (k in src) st[k] = src[k];
     if (hand) { for (k in hand) st[k] = hand[k]; d.getElementById('handoff-note').hidden = false; d.getElementById('handoff-num').textContent = hand.propostaNum || ''; }
@@ -164,6 +169,7 @@
         var old = e.target.dataset.prev || 'pt';
         if (st.titulo === D.DEF[old].titulo) st.titulo = D.DEF[st.idioma].titulo;
         if (st.escopo === D.DEF[old].cEscopo) st.escopo = D.DEF[st.idioma].cEscopo;
+        if (st.mensalItens === D.DEF[old].mensalItens) st.mensalItens = D.DEF[st.idioma].mensalItens;
         e.target.dataset.prev = st.idioma; bind.pull();
       }
       dirty = true; render(); saveDraft();

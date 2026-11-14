@@ -2,7 +2,7 @@
 (function (w, d) {
   'use strict';
   var L = (w.LDT = w.LDT || {}), F = L.fmt, S = L.store, P = L.pricing, D = L.docs18n, esc = F.esc, t = L.i18n.t, tf = L.i18n.tf;
-  var TEXT_KEYS = ['titulo', 'obj', 'objs', 'escopo', 'crono', 'prazo'];
+  var TEXT_KEYS = ['titulo', 'obj', 'objs', 'escopo', 'mensalItens', 'crono', 'prazo'];
 
   var st, emp, doc = null, root, pendingEl, dirty = false, totalNow = 0, pend = 0;
   var SHAPES = '<svg class="shapes" viewBox="0 0 210 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="210,0 210,95 120,0" fill="#C8282A"/><polygon points="210,0 150,0 210,60" fill="#222222"/><polygon points="210,95 210,150 165,110" fill="#6B7280"/><polygon points="120,0 150,0 210,60 210,95" fill="#A71F22"/><polygon points="175,70 210,95 210,120" fill="#222222" opacity=".85"/></svg>';
@@ -34,12 +34,12 @@
       '<div class="contact">' + [emp.nome, emp.email, emp.tel, emp.site].filter(Boolean).map(esc).join(' · ') + '</div></section>';
 
     var rows = F.pairs(st.escopo).map(function (r) { return '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>'; }).join('');
-    var objs = F.lines(st.objs);
+    var objs = F.lines(st.objs), mensalNow = F.num(st.mensal), mItens = F.lines(st.mensalItens);
     h += '<section class="sheet">' + header(T) + '<div class="pad"><div class="eb">' + T.e1 + '</div><h2>' + T.h1 + '</h2>' +
       '<p>' + fill(T.intro, { nome: esc(st.cliente || T.contactFallback), cli: cli, obj: esc(st.obj) || mark(T.goal) }) + '</p>' +
       (objs.length ? '<h3>' + T.objs + '</h3><ul class="b">' + objs.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
       (st.publico.trim() ? '<h3>' + T.audience + '</h3><p>' + esc(st.publico) + '</p>' : '') +
-      '<div class="sp"></div><div class="eb">' + T.e2 + '</div><h2>' + T.h2 + '</h2><table class="t"><tr><th>' + T.thDeliv + '</th><th>' + T.thDet + '</th></tr>' + rows + '</table>' +
+      '<div class="sp"></div><div class="eb">' + T.e2 + '</div><h2>' + T.h2 + '</h2><h3>' + (mensalNow > 0 ? '1 · ' : '') + T.sMain + '</h3><table class="t"><tr><th>' + T.thDeliv + '</th><th>' + T.thDet + '</th></tr>' + rows + '</table>' +
       '<p class="note">' + T.outScope + '</p></div>' + footer(T, 2) + '</section>';
 
     var ent = Math.min(Math.max(F.num(st.ent), 0), 100), pn = Math.floor(F.num(st.pn)), parc = '';
@@ -52,7 +52,8 @@
     var totalHtml = totalNow > 0 ? esc(money(totalNow)) : mark(T.amount);
     var steps = F.pairs(st.crono).map(function (r, i) { return '<div class="step"><div class="n">' + (i + 1) + '</div><div class="a">' + esc(r[0]) + '</div><div class="d">' + esc(r[1]) + '</div></div>'; }).join('');
     h += '<section class="sheet">' + header(T) + '<div class="pad"><div class="eb">' + T.e3 + '</div><h2>' + T.h3 + '</h2>' +
-      '<div class="total"><span>' + T.total + '</span><b>' + totalHtml + '</b></div>' + parc +
+      '<div class="total"><span>' + (mensalNow > 0 ? T.totalOne : T.total) + '</span><b>' + totalHtml + '</b></div>' + parc +
+      (mensalNow > 0 ? '<div class="total" style="margin-top:4mm"><span>' + T.totalMonth + '</span><b>' + esc(money(mensalNow)) + '<small style="font-size:.55em;font-weight:500"> ' + T.perMonth + '</small></b></div><p class="note" style="margin-top:2mm">' + T.monthNote + '</p>' + (mItens.length ? '<h3 style="margin-top:4mm">' + T.sMonth + '</h3><ul class="b" style="columns:2;column-gap:8mm;font-size:.92em">' + mItens.map(function (x) { return '<li style="break-inside:avoid">' + esc(x) + '</li>'; }).join('') + '</ul>' : '') : '') +
       ((st.obsv || '').trim() ? '<p class="note" style="margin-top:3mm">' + esc(st.obsv) + '</p>' : '') +
       '<div class="sp"></div><div class="eb">' + T.e4 + '</div><h2>' + T.h4 + '</h2>' + steps +
       (st.prazo ? '<p style="margin-top:4mm">' + fill(T.term, { prazo: esc(st.prazo) }) + '</p>' : '') + '</div>' + footer(T, 3) + '</section>';
@@ -63,7 +64,7 @@
       (F.lines(st.termos).length ? '<h3>' + T.terms + '</h3><ul class="b">' + F.lines(st.termos).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') : '';
     h += '<section class="sheet">' + header(T) + '<div class="pad">' + payBlock + (hasPay ? '<div class="sp"></div>' : '') +
       '<div class="eb">' + (hasPay ? '06' : '05') + ' · ' + T.next + '</div><h2>' + T.h6 + '</h2><p>' + T.start + '</p>' +
-      '<div class="box"><p><span class="cb"></span> ' + fill(T.accept, { total: totalHtml }) + '</p></div>' +
+      '<div class="box"><p><span class="cb"></span> ' + fill(T.accept, { total: totalHtml }).replace(/\.$/, '') + (mensalNow > 0 ? fill(T.acceptM, { m: esc(money(mensalNow)) }) : '') + '.' + '</p></div>' +
       '<div class="sig" style="margin-top:8mm"><div>' + esc(emp.responsavel) + '<br><small>' + esc(emp.nome) + '</small></div><div>' + (esc(st.cliente) || '&nbsp;') + '<br><small>' + (esc(st.cliEmp) || T.clientWord) + '</small></div></div>' +
       '<p class="note" style="margin-top:6mm">' + T.place + ': ______________________, ____ / ____ / ________</p>' +
       '<div class="thanks"><b>' + T.thanks + '</b><span>' + fill(T.questions, { c: [emp.email, emp.tel, emp.site].filter(Boolean).map(esc).join(' · ') }) + '</span></div></div>' + footer(T, 4) + '</section>';
@@ -95,7 +96,7 @@
     var id = (w.location.search.match(/[?&]id=([^&]+)/) || [])[1];
     if (id) doc = S.docs.get(decodeURIComponent(id));
     var idi = fin.idioma || 'pt', src = doc ? doc.dados : S.draft.get('proposta');
-    st = { idioma: idi, moeda: fin.moeda || 'BRL', cliente: '', cliEmp: '', num: '', data: '', valid: '15', publico: '', v1: '', modo: 'preco', ent: '', pn: '', obsv: '', pag: '', termos: '',
+    st = { idioma: idi, moeda: fin.moeda || 'BRL', cliente: '', cliEmp: '', num: '', data: '', valid: '15', publico: '', v1: '', mensal: '', modo: 'preco', ent: '', pn: '', obsv: '', pag: '', termos: '',
       imp: fin.imp, regime: fin.regime, techfx: fin.techfx, oc: fin.oc, arr: fin.arr,
       gateway: fin.gateway, meio: fin.meio, parc: fin.parc, antic: fin.antic, fpix: fin.fpix, fbol: fin.fbol, fcar: fin.fcar, c1: fin.c1, c2: fin.c2, c3: fin.c3, fant: fin.fant };
     TEXT_KEYS.forEach(function (x) { st[x] = D.DEF[idi][x]; });

@@ -8,7 +8,7 @@
     contrato: ['Contrato com Maria Souza (pessoa física), site de 5 páginas, prazo 25 dias úteis, pagamento em 3 parcelas', 'Foro em São Paulo, 60 dias de suporte'],
     calculadora: ['Quero receber R$ 3.000 líquidos no Pix pela TechFX', 'Compare com Asaas cartão em 6x']
   };
-  var hist = [];
+  var hists = { campos: [], duvidas: [] };
 
   function fieldOf(k) { return d.querySelector('[data-k="' + k + '"]'); }
   function current(tipo) {
@@ -47,11 +47,23 @@
       '<button class="btn primary" type="submit">' + esc(t('Enviar')) + '</button></form>' +
       '<p class="ia-note">' + esc(t('A IA só preenche os campos. Os cálculos são feitos pelo sistema. Revise antes de enviar ao cliente.')) + '</p>';
     d.body.appendChild(btn); d.body.appendChild(box);
+    var mode = 'campos';
+    var tabs = d.createElement('div'); tabs.className = 'ia-tabs'; tabs.setAttribute('role', 'group');
+    tabs.innerHTML = '<button type="button" data-m="campos" aria-pressed="true">' + esc(t('Preencher campos')) + '</button><button type="button" data-m="duvidas" aria-pressed="false">' + esc(t('Tirar dúvidas')) + '</button>';
+    box.insertBefore(tabs, box.children[1]);
     var log = box.querySelector('.ia-log'), ta = box.querySelector('textarea'), form = box.querySelector('form'), ex = box.querySelector('.ia-ex'), busy = false;
     function say(text, who) { var m = d.createElement('div'); m.className = 'ia-msg ' + who; m.textContent = text; log.appendChild(m); log.scrollTop = log.scrollHeight; return m; }
     say(t('Olá! Descreva o que quer e eu preencho o formulário para você.'), 'bot');
     (EXEMPLOS[tipo] || []).forEach(function (e) {
       var b = d.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = e; b.addEventListener('click', function () { ta.value = e; ta.focus(); }); ex.appendChild(b);
+    });
+    tabs.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-m]'); if (!b) return; mode = b.dataset.m;
+      [].forEach.call(tabs.children, function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      ex.style.display = mode === 'campos' ? '' : 'none';
+      ta.placeholder = t(mode === 'campos' ? 'Peça o que você precisa…' : 'Pergunte sobre imposto, taxas, câmbio…');
+      say(t(mode === 'campos' ? 'Modo preencher campos: descreva e eu preencho o formulário.' : 'Modo dúvidas: pergunte sobre imposto, taxas e precificação. Não tenho acesso à internet; confirme valores oficiais com seu contador.'), 'bot');
+      ta.focus();
     });
     function toggle(open) { box.hidden = !open; btn.hidden = open; if (open) ta.focus(); }
     btn.addEventListener('click', function () { toggle(true); });
@@ -70,7 +82,7 @@
     function send(msg, retry) {
       busy = true; var wait = say(t('Pensando…'), 'bot wait');
       var headers = { 'Content-Type': 'application/json' }; if (code()) headers['x-ldt-code'] = code();
-      return fetch('/api/ia', { method: 'POST', headers: headers, body: JSON.stringify({ tipo: tipo, mensagem: msg, atual: current(tipo), historico: hist }) })
+      return fetch('/api/ia', { method: 'POST', headers: headers, body: JSON.stringify({ tipo: mode === 'duvidas' ? 'duvidas' : tipo, mensagem: msg, atual: current(tipo), historico: hists[mode] }) })
         .then(function (r) { return r.json().catch(function () { return { erro: 'Resposta inválida do servidor.' }; }).then(function (j) { return { s: r.status, j: j }; }); })
         .then(function (o) {
           wait.remove();
@@ -78,7 +90,7 @@
             return askCode().then(function (c) { if (c) { S.write('iacode', c); return send(msg, true); } say(t('Código de acesso inválido.'), 'bot err'); });
           }
           if (o.j.erro) { say(o.j.erro, 'bot err'); return; }
-          var n = applyFields(o.j.campos || {});
+          var n = mode === 'duvidas' ? 0 : applyFields(o.j.campos || {}), hist = hists[mode];
           hist.push({ role: 'user', content: msg }, { role: 'assistant', content: o.j.resposta });
           say(o.j.resposta + (n ? '  (' + n + ' ' + t('campo(s) atualizado(s)') + ')' : ''), 'bot');
           if (n) L.ui.toast('Campos preenchidos pela IA');
