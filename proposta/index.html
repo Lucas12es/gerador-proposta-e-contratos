@@ -51,6 +51,9 @@
         <label class="field"><span>Mensalidade: hospedagem e manutenção (opcional)</span><input data-k="mensal" placeholder="Ex.: 99" inputmode="decimal"><small>Deixe vazio se a proposta não tiver mensalidade.</small></label>
         <a class="btn btn-secondary btn-block" href="../calculadora/index.html"><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg>Calcular preço na calculadora</a>
         <p class="hint">Não sabe o preço? Na calculadora você informa quanto quer receber e ela calcula quanto cobrar, com imposto e taxas.</p>
+        <label class="check"><input type="checkbox" data-k="opcoes"> Mostrar opções de pagamento no PDF: Pix e cartão de 1x a 6x</label>
+        <label class="field"><span>Valor líquido que quero receber (para as opções)</span><input data-k="liqAlvo" placeholder="Ex.: 1500" inputmode="decimal"><small>O sistema calcula quanto cobrar em cada forma, com imposto e taxas do Asaas.</small></label>
+        <label class="check"><input type="checkbox" data-k="antic"> Considerar antecipação do cartão (receber em 2 dias)</label>
         <div class="row">
           <label class="field"><span>Entrada (%)</span><input data-k="ent" placeholder="Ex.: 50" inputmode="decimal"></label>
           <label class="field"><span>Parcelas do saldo</span><input data-k="pn" placeholder="Ex.: 3" inputmode="numeric"></label>

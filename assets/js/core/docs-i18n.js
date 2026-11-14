@@ -26,6 +26,7 @@
   /* ---------- Proposta ---------- */
   var P = {
     pt: {
+      thInst: 'Parcelas', optPix: 'Pix · à vista', optCard: 'Cartão de crédito · {n}x', optNote: 'O valor muda conforme a forma de pagamento, porque cada uma tem tarifas diferentes. Marque a opção escolhida.', acceptOpt: 'De acordo com o escopo, a forma de pagamento marcada e as condições desta proposta',
       sMain: 'Implantação e desenvolvimento do site', sMonth: 'Mensalidade · hospedagem e manutenção', totalOne: 'Implantação do site · pagamento único', totalMonth: 'Mensalidade · hospedagem e manutenção', perMonth: '/mês',
       monthNote: 'A implantação é cobrada uma única vez. A hospedagem e a manutenção são cobradas mensalmente, a partir da publicação do site, garantindo a continuidade dos serviços e a permanência do site no ar.',
       acceptM: ' e a mensalidade de <b>{m}</b>',
@@ -46,6 +47,7 @@
       place: 'Local e data', thanks: 'Obrigado pela confiança!', questions: 'Dúvidas? Fale conosco: {c}', page: 'Página', clientWord: 'Cliente'
     },
     en: {
+      thInst: 'Installments', optPix: 'Pix · upfront', optCard: 'Credit card · {n}x', optNote: 'The amount varies with the payment method, as each one has different fees. Please tick the chosen option.', acceptOpt: 'I agree with the scope, the payment method ticked and the terms of this proposal',
       sMain: 'Website implementation and development', sMonth: 'Monthly fee · hosting and maintenance', totalOne: 'Website implementation · one-time payment', totalMonth: 'Monthly fee · hosting and maintenance', perMonth: '/month',
       monthNote: 'The implementation is charged once. Hosting and maintenance are charged monthly, from the day the website goes live, ensuring continuity of the services and keeping the website online.',
       acceptM: ' and the monthly fee of <b>{m}</b>',
@@ -66,6 +68,7 @@
       place: 'Place and date', thanks: 'Thank you for your trust!', questions: 'Questions? Contact us: {c}', page: 'Page', clientWord: 'Client'
     },
     es: {
+      thInst: 'Cuotas', optPix: 'Pix · al contado', optCard: 'Tarjeta de crédito · {n}x', optNote: 'El importe varía según la forma de pago, ya que cada una tiene tarifas distintas. Marque la opción elegida.', acceptOpt: 'Estoy de acuerdo con el alcance, la forma de pago marcada y las condiciones de esta propuesta',
       sMain: 'Implantación y desarrollo del sitio', sMonth: 'Mensualidad · alojamiento y mantenimiento', totalOne: 'Implantación del sitio · pago único', totalMonth: 'Mensualidad · alojamiento y mantenimiento', perMonth: '/mes',
       monthNote: 'La implantación se cobra una sola vez. El alojamiento y el mantenimiento se cobran mensualmente, a partir de la publicación del sitio, garantizando la continuidad de los servicios y la permanencia del sitio en línea.',
       acceptM: ' y la mensualidad de <b>{m}</b>',
@@ -97,7 +100,6 @@
       mensalItens: 'Hospedagem e infraestrutura para manter o site online\nMonitoramento básico de disponibilidade e funcionamento\nManutenção técnica preventiva\nSuporte técnico para necessidades relacionadas ao site\nPequenos ajustes e alterações de conteúdo, conforme o escopo contratado\nAtualizações técnicas e correções necessárias',
       crono: 'Aprovação da prévia | Concluída\nAjustes e conteúdo final | 3 dias\nDomínio e hospedagem | 1 dia\nTestes de funcionamento e responsividade | 1 dia\nSite no ar | 1 dia',
       prazo: '6 dias úteis',
-      pag: 'Formas de pagamento: Pix ou cartão de crédito, parcelado em até 6x\nMensalidade: somente via Pix',
       cEscopo: 'Planejamento e estruturação das páginas do site\nLayout personalizado e responsivo, para computadores, tablets e celulares\nApresentação institucional da empresa, produtos e serviços\nOrganização de conteúdos, imagens e informações comerciais\nBotões e canais de contato, com integração ao WhatsApp\nConfiguração básica de SEO\nConfiguração de domínio e publicação no ambiente de hospedagem\nTestes de funcionamento, navegação e responsividade antes da publicação'
     },
     en: {
@@ -108,7 +110,6 @@
       mensalItens: 'Hosting and infrastructure to keep the website online\nBasic availability and performance monitoring\nPreventive technical maintenance\nTechnical support for website-related needs\nMinor adjustments and content changes, within the contracted scope\nTechnical updates and necessary fixes',
       crono: 'Preview approval | Completed\nAdjustments and final content | 3 days\nDomain and hosting | 1 day\nFunctionality and responsiveness testing | 1 day\nGo live | 1 day',
       prazo: '6 business days',
-      pag: 'Payment methods: Pix or credit card, in up to 6 installments\nMonthly fee: Pix only',
       cEscopo: 'Planning and structuring of the website pages\nCustom responsive layout for computers, tablets and phones\nCorporate presentation of the company, products and services\nOrganization of content, images and commercial information\nContact buttons and channels, with WhatsApp integration\nBasic SEO setup\nDomain setup and publishing to the hosting environment\nFunctionality, navigation and responsiveness testing before launch'
     },
     es: {
@@ -119,7 +120,6 @@
       mensalItens: 'Alojamiento e infraestructura para mantener el sitio en línea\nMonitoreo básico de disponibilidad y funcionamiento\nMantenimiento técnico preventivo\nSoporte técnico para necesidades relacionadas con el sitio\nPequeños ajustes y cambios de contenido, según el alcance contratado\nActualizaciones técnicas y correcciones necesarias',
       crono: 'Aprobación de la vista previa | Completada\nAjustes y contenido final | 3 días\nDominio y alojamiento | 1 día\nPruebas de funcionamiento y adaptabilidad | 1 día\nSitio en línea | 1 día',
       prazo: '6 días hábiles',
-      pag: 'Formas de pago: Pix o tarjeta de crédito, hasta en 6 cuotas\nMensualidad: solo por Pix',
       cEscopo: 'Planificación y estructuración de las páginas del sitio\nDiseño personalizado y responsivo para ordenadores, tabletas y móviles\nPresentación institucional de la empresa, productos y servicios\nOrganización de contenidos, imágenes e información comercial\nBotones y canales de contacto, con integración con WhatsApp\nConfiguración básica de SEO\nConfiguración del dominio y publicación en el entorno de alojamiento\nPruebas de funcionamiento, navegación y adaptabilidad antes de publicar'
     }
   };
@@ -284,48 +284,11 @@
   function fill(s, v) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return v && v[k] != null ? v[k] : m; }); }
 
   /* Textos padrão de versões anteriores: rascunhos que ainda os têm recebem os padrões novos (documentos salvos nunca são alterados). */
-  var LEGACY = {"titulo":["Criação de Website","Website Development","Creación de Sitio Web"],"obj":["gerar contatos qualificados e fortalecer a presença da marca na internet","generates qualified leads and strengthens the brand’s presence online","genere contactos cualificados y refuerce la presencia de la marca en internet"],"objs":["Transmitir credibilidade e profissionalismo\nFacilitar o contato via WhatsApp e formulário\nAparecer melhor nas buscas do Google","Convey credibility and professionalism\nMake contact easy via WhatsApp and contact form\nRank better in Google searches","Transmitir credibilidad y profesionalismo\nFacilitar el contacto por WhatsApp y formulario\nAparecer mejor en las búsquedas de Google"],"escopo":["Design exclusivo | Layout personalizado alinhado à identidade visual, versões desktop e mobile\nDesenvolvimento | Site responsivo, rápido e otimizado para todos os dispositivos\nPáginas | Home, Sobre, Serviços, Portfólio e Contato\nSEO básico | Títulos, descrições, estrutura e velocidade otimizados para o Google\nIntegrações | WhatsApp, formulário de contato, Google Analytics e redes sociais\nHospedagem e domínio | Incluso por 12 meses\nTreinamento | Orientação para atualizar os conteúdos sozinho\nSuporte pós-entrega | 30 dias de ajustes e correções sem custo","Custom design | Tailored layout aligned with your visual identity, desktop and mobile versions\nDevelopment | Responsive, fast website optimized for all devices\nPages | Home, About, Services, Portfolio and Contact\nBasic SEO | Titles, descriptions, structure and speed optimized for Google\nIntegrations | WhatsApp, contact form, Google Analytics and social media\nHosting and domain | Included for 12 months\nTraining | Guidance to update the content yourself\nPost-delivery support | 30 days of free adjustments and fixes","Diseño exclusivo | Diseño personalizado alineado con la identidad visual, versiones de escritorio y móvil\nDesarrollo | Sitio responsivo, rápido y optimizado para todos los dispositivos\nPáginas | Inicio, Nosotros, Servicios, Portafolio y Contacto\nSEO básico | Títulos, descripciones, estructura y velocidad optimizados para Google\nIntegraciones | WhatsApp, formulario de contacto, Google Analytics y redes sociales\nAlojamiento y dominio | Incluido por 12 meses\nCapacitación | Orientación para actualizar los contenidos usted mismo\nSoporte posterior | 30 días de ajustes y correcciones sin costo"],"crono":["Briefing e planejamento | 2 dias\nDesign / protótipo | 5 dias\nAprovação do layout | 2 dias\nDesenvolvimento | 7 dias\nTestes e ajustes | 3 dias\nPublicação no ar | 1 dia","Briefing and planning | 2 days\nDesign / prototype | 5 days\nLayout approval | 2 days\nDevelopment | 7 days\nTesting and adjustments | 3 days\nGo live | 1 day","Briefing y planificación | 2 días\nDiseño / prototipo | 5 días\nAprobación del diseño | 2 días\nDesarrollo | 7 días\nPruebas y ajustes | 3 días\nPublicación | 1 día"],"prazo":["20 dias úteis","20 business days","20 días hábiles"],"cEscopo":["Design exclusivo da interface, versões desktop e mobile\nDesenvolvimento de site responsivo\nSEO básico\nIntegração com WhatsApp e formulário de contato","Custom interface design, desktop and mobile versions\nDevelopment of a responsive website\nBasic SEO\nWhatsApp and contact form integration","Diseño exclusivo de la interfaz, versiones de escritorio y móvil\nDesarrollo de un sitio web responsivo\nSEO básico\nIntegración con WhatsApp y formulario de contacto"],"mensalItens":["Hospedagem e infraestrutura para manter o site online\nMonitoramento básico de disponibilidade e funcionamento\nManutenção técnica preventiva\nSuporte técnico para necessidades relacionadas ao site\nPequenos ajustes e alterações de conteúdo, conforme o escopo contratado\nAtualizações técnicas e correções necessárias\nRotinas de backup e proteção dos arquivos do site","Hosting and infrastructure to keep the website online\nBasic availability and performance monitoring\nPreventive technical maintenance\nTechnical support for website-related needs\nMinor adjustments and content changes, within the contracted scope\nTechnical updates and necessary fixes\nBackup routines and protection of the website files","Alojamiento e infraestructura para mantener el sitio en línea\nMonitoreo básico de disponibilidad y funcionamiento\nMantenimiento técnico preventivo\nSoporte técnico para necesidades relacionadas con el sitio\nPequeños ajustes y cambios de contenido, según el alcance contratado\nActualizaciones técnicas y correcciones necesarias\nRutinas de copia de seguridad y protección de los archivos del sitio"]};
+  var LEGACY = {"titulo": ["Criação de Website", "Website Development", "Creación de Sitio Web"], "obj": ["gerar contatos qualificados e fortalecer a presença da marca na internet", "generates qualified leads and strengthens the brand’s presence online", "genere contactos cualificados y refuerce la presencia de la marca en internet"], "objs": ["Transmitir credibilidade e profissionalismo\nFacilitar o contato via WhatsApp e formulário\nAparecer melhor nas buscas do Google", "Convey credibility and professionalism\nMake contact easy via WhatsApp and contact form\nRank better in Google searches", "Transmitir credibilidad y profesionalismo\nFacilitar el contacto por WhatsApp y formulario\nAparecer mejor en las búsquedas de Google"], "escopo": ["Design exclusivo | Layout personalizado alinhado à identidade visual, versões desktop e mobile\nDesenvolvimento | Site responsivo, rápido e otimizado para todos os dispositivos\nPáginas | Home, Sobre, Serviços, Portfólio e Contato\nSEO básico | Títulos, descrições, estrutura e velocidade otimizados para o Google\nIntegrações | WhatsApp, formulário de contato, Google Analytics e redes sociais\nHospedagem e domínio | Incluso por 12 meses\nTreinamento | Orientação para atualizar os conteúdos sozinho\nSuporte pós-entrega | 30 dias de ajustes e correções sem custo", "Custom design | Tailored layout aligned with your visual identity, desktop and mobile versions\nDevelopment | Responsive, fast website optimized for all devices\nPages | Home, About, Services, Portfolio and Contact\nBasic SEO | Titles, descriptions, structure and speed optimized for Google\nIntegrations | WhatsApp, contact form, Google Analytics and social media\nHosting and domain | Included for 12 months\nTraining | Guidance to update the content yourself\nPost-delivery support | 30 days of free adjustments and fixes", "Diseño exclusivo | Diseño personalizado alineado con la identidad visual, versiones de escritorio y móvil\nDesarrollo | Sitio responsivo, rápido y optimizado para todos los dispositivos\nPáginas | Inicio, Nosotros, Servicios, Portafolio y Contacto\nSEO básico | Títulos, descripciones, estructura y velocidad optimizados para Google\nIntegraciones | WhatsApp, formulario de contacto, Google Analytics y redes sociales\nAlojamiento y dominio | Incluido por 12 meses\nCapacitación | Orientación para actualizar los contenidos usted mismo\nSoporte posterior | 30 días de ajustes y correcciones sin costo"], "crono": ["Briefing e planejamento | 2 dias\nDesign / protótipo | 5 dias\nAprovação do layout | 2 dias\nDesenvolvimento | 7 dias\nTestes e ajustes | 3 dias\nPublicação no ar | 1 dia", "Briefing and planning | 2 days\nDesign / prototype | 5 days\nLayout approval | 2 days\nDevelopment | 7 days\nTesting and adjustments | 3 days\nGo live | 1 day", "Briefing y planificación | 2 días\nDiseño / prototipo | 5 días\nAprobación del diseño | 2 días\nDesarrollo | 7 días\nPruebas y ajustes | 3 días\nPublicación | 1 día"], "prazo": ["20 dias úteis", "20 business days", "20 días hábiles"], "cEscopo": ["Design exclusivo da interface, versões desktop e mobile\nDesenvolvimento de site responsivo\nSEO básico\nIntegração com WhatsApp e formulário de contato", "Custom interface design, desktop and mobile versions\nDevelopment of a responsive website\nBasic SEO\nWhatsApp and contact form integration", "Diseño exclusivo de la interfaz, versiones de escritorio y móvil\nDesarrollo de un sitio web responsivo\nSEO básico\nIntegración con WhatsApp y formulario de contacto"]};
   /** O valor é o texto padrão (atual ou de versão anterior) de algum idioma? */
   function isDef(key, val, legacy) {
     for (var l in DEF) if (DEF[l][key] === val) return true;
     return !!legacy && (LEGACY[key] || []).indexOf(val) >= 0;
   }
-  var IDX = { pt: 0, en: 1, es: 2 };
-  function norm(x) { return String(x == null ? '' : x).replace(/\r\n?/g, '\n').split('\n').map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).join('\n').trim(); }
-  function groups(key) {
-    var g = [[DEF.pt[key], DEF.en[key], DEF.es[key]]], lg = LEGACY[key] || [], i;
-    for (i = 0; i + 2 < lg.length; i += 3) g.push([lg[i], lg[i + 1], lg[i + 2]]);
-    return g;
-  }
-  var UNITS = { dia: 1, dias: 1, 'días': 1, day: 1, days: 1 };
-  /**
-   * Devolve o texto na língua pedida se o valor é (ou contém linhas) de um texto padrão, atual ou antigo, de qualquer idioma.
-   * Texto escrito à mão nunca é alterado. Sem mudança: null.
-   */
-  function translate(key, val, lang) {
-    var li = IDX[lang], nv = norm(val), G = groups(key), a, b, out;
-    if (!nv || li == null || !DEF[lang] || DEF[lang][key] == null) return null;
-    for (a = 0; a < G.length; a++) for (b = 0; b < 3; b++) if (norm(G[a][b]) === nv) return DEF[lang][key];
-    if (key === 'prazo') {
-      var m = nv.match(/^(\d+)\s+(\S+)\s+(\S+)$/);
-      if (m && UNITS[m[2].toLowerCase()] && /^(úteis|uteis|hábeis|habeis|hábiles|habiles|business|working)$/i.test(m[3]))
-        return m[1] + ' ' + (lang === 'en' ? 'business days' : lang === 'es' ? 'días hábiles' : 'dias úteis');
-      return null;
-    }
-    var changed = false;
-    out = String(val).replace(/\r\n?/g, '\n').split('\n').map(function (line) {
-      var n = norm(line), x, y, cols, k;
-      if (!n) return line;
-      for (x = 0; x < G.length; x++) {
-        cols = G[x].map(function (v) { return String(v).split('\n').map(norm); });
-        for (y = 0; y < 3; y++) {
-          k = cols[y].indexOf(n);
-          if (k >= 0 && cols[li].length === cols[y].length) { var nl = String(G[x][li]).split('\n')[k]; if (norm(nl) !== n) changed = true; return nl; }
-        }
-      }
-      return line;
-    });
-    return changed ? out.join('\n') : null;
-  }
-  L.docs18n = { translate: translate, isDef: isDef, P: P, C: C, DEF: DEF, fill: fill, dateLong: dateLong, cur: cur, num: num, pct: pct, MESES: MESES };
+  L.docs18n = { isDef: isDef, P: P, C: C, DEF: DEF, fill: fill, dateLong: dateLong, cur: cur, num: num, pct: pct, MESES: MESES };
 })(window);

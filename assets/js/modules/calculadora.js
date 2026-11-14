@@ -46,6 +46,12 @@
       S.handoff.set('proposta', { v1: F.money(total), modo: 'preco', moeda: st.moeda, gateway: st.gateway, meio: st.meio, parc: st.parc, antic: st.antic, imp: st.imp, techfx: st.techfx, oc: st.oc });
       w.location.href = '../proposta/index.html';
     });
+    d.getElementById('use-opts').addEventListener('click', function () {
+      var v = F.num(st.v1); if (!(v > 0)) return;
+      var liq = st.modo === 'liq' ? v : P.forward(v, P.ctx(st)).liq;
+      S.handoff.set('proposta', { opcoes: '1', liqAlvo: F.money(liq), moeda: st.moeda, antic: st.antic, imp: st.imp, oc: st.oc, arr: st.arr });
+      w.location.href = '../proposta/index.html';
+    });
     render();
   }
   d.addEventListener('DOMContentLoaded', init);
