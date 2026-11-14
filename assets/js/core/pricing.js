@@ -15,16 +15,17 @@
     else {
       c.f = num(cfg.fcar);
       c.p = num(parc <= 1 ? cfg.c1 : parc <= 6 ? cfg.c2 : cfg.c3) / 100;
-      if (cfg.antic) c.a = num(cfg.fant) / 100 * ((parc + 1) / 2);
+      if (cfg.antic) c.a = num(cfg.fant) / 100 * ((parc + 1) / 2) * (15 / 14); /* calibrado com a simulação do Asaas (6x): antecipação incide sobre o líquido após a taxa; fator ~1,07 por parcelas a cada ~32 dias */
     }
     return c;
   }
   function forward(g, c) {
-    var imp = g * c.t, fee = g * (c.p + c.a) + c.f, oc = g * c.o;
+    var base = g * c.p + c.f, fee = base + (g - base) * c.a, imp = g * c.t, oc = g * c.o;
     return { g: g, imp: imp, fee: fee, oc: oc, liq: g - imp - fee - oc };
   }
-  function valid(c) { return c.t + c.p + c.a + c.o < 1; }
-  function gross(liq, c) { var den = 1 - c.t - c.p - c.a - c.o; return den > 0 ? (liq + c.f) / den : NaN; }
+  function den(c) { return (1 - c.p) * (1 - c.a) - c.t - c.o; }
+  function valid(c) { return den(c) > 0; }
+  function gross(liq, c) { var dn = den(c); return dn > 0 ? (liq + c.f * (1 - c.a)) / dn : NaN; }
   function roundUp(x, step) {
     if (!isFinite(x)) return x;
     return step > 0 ? Math.ceil(x / step - 1e-9) * step : Math.ceil(x * 100 - 1e-6) / 100;

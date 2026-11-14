@@ -90,6 +90,7 @@ export default {
   async fetch(req, env) {
     const u = new URL(req.url);
     if (u.pathname === '/api/ia') {
+      if (req.method === 'GET') return json({ worker: 'ok', chave_configurada: !!env.GROQ_API_KEY, codigo_de_acesso_configurado: !!env.ACCESS_CODE });
       if (req.method !== 'POST') return json({ erro: 'Método não permitido.' }, 405);
       return ia(req, env);
     }

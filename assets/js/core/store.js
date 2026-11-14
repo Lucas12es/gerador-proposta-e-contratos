@@ -26,7 +26,7 @@
   var DEFAULT_FIN = {
     regime: '6', imp: '6', techfx: '0,5', oc: '0', arr: '1', moeda: 'BRL', idioma: 'pt',
     gateway: 'techfx', meio: 'pix', parc: '1', antic: '', promo: '',
-    fpix: '1,99', fbol: '1,99', fcar: '0,49', c1: '2,99', c2: '3,49', c3: '3,99', fant: '1,25'
+    fpix: '1,99', fbol: '1,99', fcar: '0,49', c1: '2,99', c2: '3,49', c3: '3,99', fant: '1,6'
   };
   var STATUS = {
     proposta: [['rascunho', 'Rascunho', ''], ['enviada', 'Enviada', 'info'], ['aprovada', 'Aprovada', 'ok'], ['recusada', 'Recusada', 'danger']],
