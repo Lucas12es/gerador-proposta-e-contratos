@@ -139,7 +139,7 @@
     if (!s) { L.ui.toast('Não foi possível salvar neste navegador.', 'err'); return null; }
     doc = s; dirty = false; S.draft.clear('contrato');
     history.replaceState(null, '', 'index.html?id=' + encodeURIComponent(doc.id));
-    d.getElementById('save-state').textContent = 'Salvo';
+    d.getElementById('save-state').textContent = t('Salvo');
     if (silent !== true) L.ui.toast('Contrato salvo no Painel');
     return s;
   }
@@ -169,23 +169,25 @@
     L.editor.statusSelect(d.getElementById('status'), 'contrato', doc && doc.status);
     L.editor.tabs(d.getElementById('content'));
     var zm = L.editor.zoom(d.getElementById('doc'), d.getElementById('preview-panel'));
-    var saveDraft = L.ui.debounce(function () { if (!doc) S.draft.set('contrato', st); d.getElementById('save-state').textContent = t(doc ? (dirty ? 'Alterações não salvas' : 'Salvo') : 'Rascunho automático'); }, 400);
+    var autosave = L.ui.debounce(function () { if (dirty) save(true); }, 500);
     var bind = L.ui.bind(d.getElementById('form-panel'), st, function (key, e) {
       if (key === 'idioma') {
-        localize();
+        localize(!doc);
         e.target.dataset.prev = st.idioma; bind.pull();
       }
-      dirty = true; render(); saveDraft();
+      dirty = true; render(); d.getElementById('save-state').textContent = t('Alterações não salvas'); autosave();
     });
     d.querySelector('[data-k=idioma]').dataset.prev = st.idioma;
     d.getElementById('btn-salvar').addEventListener('click', function () { save(); });
     d.getElementById('status').addEventListener('change', function () { if (doc) { S.docs.setStatus(doc.id, this.value); L.ui.toast('Status atualizado'); } else save(); });
     d.getElementById('btn-pdf').addEventListener('click', function () { L.editor.print(D.C[st.idioma].doc + ' ' + st.num + ' - ' + (st.cliNome || 'Cliente')); });
     d.getElementById('btn-novo').addEventListener('click', function () {
-      L.ui.confirm({ title: 'Novo contrato?', text: 'Os campos serão limpos. O que já foi salvo continua no Painel.', ok: 'Começar novo' }).then(function (ok) { if (ok) { S.draft.clear('contrato'); w.location.href = 'index.html'; } });
+      L.ui.confirm({ title: 'Novo contrato?', text: 'Os campos serão limpos. O que já foi salvo continua no Painel.', ok: 'Começar novo' }).then(function (ok) { if (ok) { if (dirty) save(true); w.location.href = 'index.html'; } });
     });
-    w.addEventListener('beforeunload', function (e) { if (doc && dirty) { e.preventDefault(); e.returnValue = ''; } });
-    render(); zm.fit(); saveDraft();
+    w.addEventListener('pagehide', function () { if (dirty) save(true); });
+    render(); zm.fit();
+    if (!doc && (src || hand)) save(true);
+    else d.getElementById('save-state').textContent = t(doc ? 'Salvo' : 'Rascunho automático');
   }
   d.addEventListener('DOMContentLoaded', init);
 })(window, document);

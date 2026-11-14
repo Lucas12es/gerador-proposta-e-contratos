@@ -115,14 +115,14 @@
     L.editor.statusSelect(d.getElementById('status'), 'proposta', doc && doc.status);
     L.editor.tabs(d.getElementById('content'));
     var zm = L.editor.zoom(root, d.getElementById('preview-panel'));
-    var saveDraft = L.ui.debounce(function () { if (!doc) S.draft.set('proposta', st); d.getElementById('save-state').textContent = t(doc ? (dirty ? 'Alterações não salvas' : 'Salva') : 'Rascunho automático'); }, 400);
+    var autosave = L.ui.debounce(function () { if (dirty) save(true); }, 500);
     var b = L.ui.bind(d.getElementById('form-panel'), st, function (key, e) {
       if (key === 'idioma') {
         var old = e.target.dataset.prev || idi;
-        localize();
+        localize(!doc);
         e.target.dataset.prev = st.idioma; b.pull();
       }
-      dirty = true; render(); saveDraft();
+      dirty = true; render(); d.getElementById('save-state').textContent = t('Alterações não salvas'); autosave();
     });
     d.querySelector('[data-k=idioma]').dataset.prev = st.idioma;
     d.getElementById('btn-salvar').addEventListener('click', function () { save(); });
@@ -135,11 +135,14 @@
     });
     d.getElementById('btn-novo').addEventListener('click', function () {
       L.ui.confirm({ title: 'Nova proposta?', text: 'Os campos serão limpos para uma nova proposta. O que já foi salvo continua no Painel.', ok: 'Começar nova' }).then(function (ok) {
-        if (!ok) return; S.draft.clear('proposta'); w.location.href = 'index.html';
+        if (!ok) return; if (dirty) save(true); w.location.href = 'index.html';
       });
     });
-    w.addEventListener('beforeunload', function (e) { if (doc && dirty) { e.preventDefault(); e.returnValue = ''; } });
-    render(); zm.fit(); saveDraft();
+    w.addEventListener('pagehide', function () { if (dirty) save(true); });
+    render(); zm.fit();
+    /* Tudo é salvo direto no Painel: rascunho antigo ou vindo da calculadora já entra como documento. */
+    if (!doc && (src || hand)) save(true);
+    else d.getElementById('save-state').textContent = t(doc ? 'Salva' : 'Rascunho automático');
   }
   d.addEventListener('DOMContentLoaded', init);
 })(window, document);

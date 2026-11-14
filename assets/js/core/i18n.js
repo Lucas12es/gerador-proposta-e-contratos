@@ -44,7 +44,16 @@
   function title() {
     var v = d.title; if (lang !== 'pt' && DICT[lang] && DICT[lang][v]) d.title = DICT[lang][v];
   }
-  function set(l) { if (LANGS.indexOf(l) >= 0) { L.store.write('uilang', l); w.location.reload(); } }
+  /** Troca o idioma da interface e leva junto o idioma dos documentos novos e dos rascunhos (documentos já salvos mantêm o seu idioma). */
+  function set(l) {
+    if (LANGS.indexOf(l) < 0) return;
+    L.store.write('uilang', l);
+    try {
+      var fin = L.store.fin(); fin.idioma = l; L.store.saveFin(fin);
+      ['proposta', 'contrato'].forEach(function (tp) { var dr = L.store.draft.get(tp); if (dr) { dr.idioma = l; L.store.draft.set(tp, dr); } });
+    } catch (e) { /* segue com a troca da interface */ }
+    w.location.reload();
+  }
 
   d.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
   L.i18n = { t: t, tf: tf, apply: apply, title: title, set: set, get: function () { return lang; }, LANGS: LANGS };
