@@ -71,35 +71,6 @@
     root.innerHTML = h;
     if (pend) { pendingEl.hidden = false; pendingEl.textContent = tf(pend > 1 ? '{n} campos pendentes' : '{n} campo pendente', { n: pend }); } else pendingEl.hidden = true;
     d.getElementById('bar-title').textContent = t(doc ? 'Proposta' : 'Nova proposta') + ' · ' + (st.num || '') + (cliName ? ' · ' + cliName : '');
-    calc();
-  }
-
-  function calc() {
-    var box = d.getElementById('calcOut'), cmp = d.getElementById('cmpOut'), c = P.ctx(st), asaas = c.gateway === 'asaas';
-    d.getElementById('asaasBox').style.display = asaas ? '' : 'none';
-    d.getElementById('f-parc').style.display = st.meio === 'pix' ? 'none' : '';
-    d.getElementById('f-antic').style.display = st.meio === 'cartao' ? '' : 'none';
-    cmp.innerHTML = '';
-    if (!P.valid(c)) { box.innerHTML = '<p class="hint warn">' + t('Os percentuais somam 100% ou mais. Revise em Configurações.') + '</p>'; return; }
-    if (!(totalNow > 0)) { box.innerHTML = ''; return; }
-    var r = P.forward(totalNow, c), pct = r.g > 0 ? r.liq / r.g * 100 : 0, ln = function (a, b, cls, v) { return '<div class="ln' + (cls ? ' ' + cls : '') + '"><span>' + tf(a, v) + '</span><span>' + b + '</span></div>'; };
-    var feeLbl = asaas ? (c.a > 0 ? '(–) Taxa Asaas + antecipação' : '(–) Taxa Asaas') : '(–) Taxa TechFX ({p})';
-    box.innerHTML = '<div class="calc-card"><h4>' + t('Resumo interno (não vai no PDF)') + '</h4>' +
-      ln('Cobrar do cliente', '<b>' + esc(money(totalNow)) + '</b>') +
-      ln('(–) Imposto da nota fiscal ({p})', esc(money(r.imp)), '', { p: D.pct(c.t * 100, st.idioma) }) +
-      ln(feeLbl, esc(money(r.fee)), '', { p: D.pct(c.p * 100, st.idioma) }) +
-      (r.oc > 0 ? ln('(–) Outros custos', esc(money(r.oc))) : '') +
-      ln('Você recebe (líquido)', esc(money(r.liq)) + ' · ' + D.pct(pct, st.idioma), 'tot') + '</div>';
-    // comparativo entre gateways para o mesmo valor
-    var v = F.num(st.v1), step = +st.arr || 0, liqMode = st.modo !== 'preco';
-    if (v > 0) {
-      var opts = [['TechFX', 'techfx', 'pix', 1], ['Asaas · Pix', 'asaas', 'pix', 1], ['Asaas · Boleto', 'asaas', 'boleto', 1], ['Asaas · Cartão 1x', 'asaas', 'cartao', 1], ['Asaas · Cartão até 6x', 'asaas', 'cartao', 6], ['Asaas · Cartão até 12x', 'asaas', 'cartao', 12]];
-      cmp.innerHTML = '<table class="ct"><tr><th>' + t('Forma') + '</th><th>' + t(liqMode ? 'Cobrar' : 'Preço') + '</th><th>' + t('Líquido') + '</th></tr>' + opts.map(function (o) {
-        var cc = P.ctx(st, o[1], o[2], o[3]), g = liqMode ? P.roundUp(P.gross(v, cc), step) : v, rr = P.forward(g, cc);
-        return '<tr><td>' + o[0] + '</td><td>' + esc(money(g)) + (o[3] > 1 ? '<br><small>' + o[3] + 'x ' + esc(money(g / o[3])) + '</small>' : '') + '</td><td>' + esc(money(rr.liq)) + '</td></tr>';
-      }).join('') + '</table>';
-    }
-    L.i18n.apply(box); L.i18n.apply(cmp);
   }
 
   function snapshot() {
@@ -118,17 +89,19 @@
   }
 
   function init() {
-    L.shell.mount('proposta');
+    L.shell.mount('proposta'); L.ia.mount('proposta');
     emp = S.empresa();
     var fin = S.fin(), k;
     var id = (w.location.search.match(/[?&]id=([^&]+)/) || [])[1];
     if (id) doc = S.docs.get(decodeURIComponent(id));
     var idi = fin.idioma || 'pt', src = doc ? doc.dados : S.draft.get('proposta');
-    st = { idioma: idi, moeda: fin.moeda || 'BRL', cliente: '', cliEmp: '', num: '', data: '', valid: '15', publico: '', v1: '', modo: 'liq', ent: '', pn: '', obsv: '', pag: '', termos: '',
+    st = { idioma: idi, moeda: fin.moeda || 'BRL', cliente: '', cliEmp: '', num: '', data: '', valid: '15', publico: '', v1: '', modo: 'preco', ent: '', pn: '', obsv: '', pag: '', termos: '',
       imp: fin.imp, regime: fin.regime, techfx: fin.techfx, oc: fin.oc, arr: fin.arr,
       gateway: fin.gateway, meio: fin.meio, parc: fin.parc, antic: fin.antic, fpix: fin.fpix, fbol: fin.fbol, fcar: fin.fcar, c1: fin.c1, c2: fin.c2, c3: fin.c3, fant: fin.fant };
     TEXT_KEYS.forEach(function (x) { st[x] = D.DEF[idi][x]; });
     if (src) for (k in src) st[k] = src[k];
+    var hand = !doc ? S.handoff.take('proposta') : null;
+    if (hand) for (k in hand) st[k] = hand[k];
     if (!st.data) st.data = F.today();
     if (!st.num) st.num = S.docs.nextNumber('proposta');
 

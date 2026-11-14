@@ -140,7 +140,7 @@
   }
 
   function init() {
-    L.shell.mount('contrato');
+    L.shell.mount('contrato'); L.ia.mount('contrato');
     emp = S.empresa();
     var id = (w.location.search.match(/[?&]id=([^&]+)/) || [])[1];
     if (id) doc = S.docs.get(decodeURIComponent(id));

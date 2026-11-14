@@ -12,10 +12,11 @@
       ['painel', root + 'index.html', 'home', 'Painel'],
       ['proposta', root + 'proposta/index.html', 'file', 'Nova proposta'],
       ['contrato', root + 'contrato/index.html', 'contract', 'Novo contrato'],
+      ['calc', root + 'calculadora/index.html', 'wallet', 'Calculadora de preço'],
       ['config', root + 'configuracoes/index.html', 'settings', 'Configurações']
     ];
     var nav = links.map(function (l, i) {
-      return (i === 1 ? '<div class="nav-label">Documentos</div>' : i === 3 ? '<div class="nav-label">Sistema</div>' : '') +
+      return (i === 1 ? '<div class="nav-label">Documentos</div>' : i === 3 ? '<div class="nav-label">Ferramentas</div>' : i === 4 ? '<div class="nav-label">Sistema</div>' : '') +
         '<a href="' + l[1] + '"' + (l[0] === active ? ' aria-current="page"' : '') + '>' + ic(l[2]) + '<span>' + l[3] + '</span></a>';
     }).join('');
     var app = d.createElement('div'); app.className = 'app';

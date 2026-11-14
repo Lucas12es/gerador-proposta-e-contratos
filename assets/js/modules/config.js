@@ -3,6 +3,9 @@
   'use strict';
   var L = (w.LDT = w.LDT || {}), F = L.fmt, S = L.store;
 
+  var PROMO = { fpix: '0,99', fbol: '0,99', fcar: '0,49', c1: '1,99', c2: '2,49', c3: '2,99' };
+  var PADRAO = { fpix: '1,99', fbol: '1,99', fcar: '0,49', c1: '2,99', c2: '3,49', c3: '3,99' };
+
   function init() {
     L.shell.mount('config');
     var emp = S.empresa(), fin = S.fin();
@@ -20,6 +23,7 @@
         var sel = d.querySelector('#fin [data-k=regime]'), m = [].slice.call(sel.options).filter(function (o) { return o.value !== 'custom' && F.num(o.value) === F.num(fin.imp); })[0];
         fin.regime = m ? m.value : 'custom'; sel.value = fin.regime;
       }
+      if (k === 'promo') { var pr = fin.promo === '1' ? PROMO : PADRAO; for (var x in pr) fin[x] = pr[x]; bf.pull(); }
       saved();
     });
     cnpjHint();

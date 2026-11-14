@@ -67,3 +67,13 @@ Como o sistema guarda dados privados de clientes **no navegador de quem usa**, c
 - Os textos em inglês e espanhol, inclusive o modelo de contrato, são traduções de apoio: peça revisão jurídica antes de usar com clientes de outros países.
 - O modelo de contrato é um ponto de partida: **peça revisão de um advogado**.
 - Pontuações do Lighthouse não foram medidas neste ambiente.
+
+## Assistente de IA (Groq)
+
+Botão **Assistente IA** nas telas de Proposta, Contrato e Calculadora: você descreve o pedido em texto e a IA preenche os campos.
+
+- O navegador chama `POST /api/ia` (arquivo `worker.js`), que fala com o Groq (`llama-3.3-70b-versatile`). A chave fica só no servidor.
+- **Configuração no Cloudflare:** projeto → Settings → Variables and Secrets → adicionar secret `GROQ_API_KEY` (tipo *Secret*) com a chave do Groq. Faça um novo deploy.
+- Opcional: secret `ACCESS_CODE` — se definido, a IA pede esse código na primeira vez (guardado no navegador). Recomendado, pois sem ele qualquer pessoa com o link do site poderia usar sua cota.
+- Local: crie `.dev.vars` com `GROQ_API_KEY=...` e rode `npx wrangler dev` (o arquivo é ignorado pelo Git).
+- A IA nunca inventa valores/documentos e não faz cálculos: imposto e taxas continuam sendo calculados pelo sistema.

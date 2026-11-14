@@ -1,0 +1,12 @@
+wrangler.jsonc
+.assetsignore
+worker.js
+deploy.bat
+README.md
+DEPLOY.md
+DEPLOY.txt
+.gitignore
+.env.example
+.dev.vars
+.git
+node_modules

@@ -4,7 +4,7 @@
   var L = (w.LDT = w.LDT || {}), F = L.fmt, S = L.store, P = L.pricing, D = L.docs18n, esc = F.esc, t = L.i18n.t, tf = L.i18n.tf;
 
   function init() {
-    L.shell.mount('calc');
+    L.shell.mount('calc'); L.ia.mount('calculadora');
     var st = S.fin(), saved = S.read('calc', null), k;
     st.v1 = ''; st.modo = 'liq';
     if (saved) for (k in saved) st[k] = saved[k];
