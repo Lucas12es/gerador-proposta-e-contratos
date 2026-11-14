@@ -97,6 +97,7 @@
       mensalItens: 'Hospedagem e infraestrutura para manter o site online\nMonitoramento básico de disponibilidade e funcionamento\nManutenção técnica preventiva\nSuporte técnico para necessidades relacionadas ao site\nPequenos ajustes e alterações de conteúdo, conforme o escopo contratado\nAtualizações técnicas e correções necessárias',
       crono: 'Aprovação da prévia | Concluída\nAjustes e conteúdo final | 3 dias\nDomínio e hospedagem | 1 dia\nTestes de funcionamento e responsividade | 1 dia\nSite no ar | 1 dia',
       prazo: '6 dias úteis',
+      pag: 'Formas de pagamento: Pix ou cartão de crédito, parcelado em até 6x\nMensalidade: somente via Pix',
       cEscopo: 'Planejamento e estruturação das páginas do site\nLayout personalizado e responsivo, para computadores, tablets e celulares\nApresentação institucional da empresa, produtos e serviços\nOrganização de conteúdos, imagens e informações comerciais\nBotões e canais de contato, com integração ao WhatsApp\nConfiguração básica de SEO\nConfiguração de domínio e publicação no ambiente de hospedagem\nTestes de funcionamento, navegação e responsividade antes da publicação'
     },
     en: {
@@ -107,6 +108,7 @@
       mensalItens: 'Hosting and infrastructure to keep the website online\nBasic availability and performance monitoring\nPreventive technical maintenance\nTechnical support for website-related needs\nMinor adjustments and content changes, within the contracted scope\nTechnical updates and necessary fixes',
       crono: 'Preview approval | Completed\nAdjustments and final content | 3 days\nDomain and hosting | 1 day\nFunctionality and responsiveness testing | 1 day\nGo live | 1 day',
       prazo: '6 business days',
+      pag: 'Payment methods: Pix or credit card, in up to 6 installments\nMonthly fee: Pix only',
       cEscopo: 'Planning and structuring of the website pages\nCustom responsive layout for computers, tablets and phones\nCorporate presentation of the company, products and services\nOrganization of content, images and commercial information\nContact buttons and channels, with WhatsApp integration\nBasic SEO setup\nDomain setup and publishing to the hosting environment\nFunctionality, navigation and responsiveness testing before launch'
     },
     es: {
@@ -117,6 +119,7 @@
       mensalItens: 'Alojamiento e infraestructura para mantener el sitio en línea\nMonitoreo básico de disponibilidad y funcionamiento\nMantenimiento técnico preventivo\nSoporte técnico para necesidades relacionadas con el sitio\nPequeños ajustes y cambios de contenido, según el alcance contratado\nActualizaciones técnicas y correcciones necesarias',
       crono: 'Aprobación de la vista previa | Completada\nAjustes y contenido final | 3 días\nDominio y alojamiento | 1 día\nPruebas de funcionamiento y adaptabilidad | 1 día\nSitio en línea | 1 día',
       prazo: '6 días hábiles',
+      pag: 'Formas de pago: Pix o tarjeta de crédito, hasta en 6 cuotas\nMensualidad: solo por Pix',
       cEscopo: 'Planificación y estructuración de las páginas del sitio\nDiseño personalizado y responsivo para ordenadores, tabletas y móviles\nPresentación institucional de la empresa, productos y servicios\nOrganización de contenidos, imágenes e información comercial\nBotones y canales de contacto, con integración con WhatsApp\nConfiguración básica de SEO\nConfiguración del dominio y publicación en el entorno de alojamiento\nPruebas de funcionamiento, navegación y adaptabilidad antes de publicar'
     }
   };

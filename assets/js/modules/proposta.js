@@ -2,7 +2,7 @@
 (function (w, d) {
   'use strict';
   var L = (w.LDT = w.LDT || {}), F = L.fmt, S = L.store, P = L.pricing, D = L.docs18n, esc = F.esc, t = L.i18n.t, tf = L.i18n.tf;
-  var TEXT_KEYS = ['titulo', 'obj', 'objs', 'escopo', 'mensalItens', 'crono', 'prazo'];
+  var TEXT_KEYS = ['titulo', 'obj', 'objs', 'escopo', 'mensalItens', 'crono', 'prazo', 'pag'];
 
   var st, emp, doc = null, root, pendingEl, dirty = false, totalNow = 0, pend = 0;
   var SHAPES = '<svg class="shapes" viewBox="0 0 210 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="210,0 210,95 120,0" fill="#C8282A"/><polygon points="210,0 150,0 210,60" fill="#222222"/><polygon points="210,95 210,150 165,110" fill="#6B7280"/><polygon points="120,0 150,0 210,60 210,95" fill="#A71F22"/><polygon points="175,70 210,95 210,120" fill="#222222" opacity=".85"/></svg>';
@@ -108,6 +108,7 @@
     var hand = !doc ? S.handoff.take('proposta') : null;
     if (hand) for (k in hand) st[k] = hand[k];
     localize(!doc);
+    if (!String(st.pag || '').trim()) st.pag = D.DEF[st.idioma].pag;
     if (!st.data) st.data = F.today();
     if (!st.num) st.num = S.docs.nextNumber('proposta');
 
