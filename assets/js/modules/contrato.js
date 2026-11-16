@@ -36,6 +36,8 @@
       rep: emp.responsavel ? fill(T.rep, { n: esc(emp.responsavel), c: emp.cargo ? ', ' + esc(emp.cargo) : '' }) : '' }));
     var cliTxt = pj ? fill(T.cliPJ, { nome: val(st.cliNome, PH.cliPJ), doc: val(st.cliDoc, PH.cnpj), end: val(st.cliEnd, PH.end), rep: val(st.cliRep, PH.rep), repDoc: val(st.cliRepDoc, PH.repDoc) })
       : fill(T.cliPF, { nome: val(st.cliNome, PH.cliPF), doc: val(st.cliDoc, PH.cpf), end: val(st.cliEnd, PH.end) });
+    if ((st.cliEmail || '').trim()) cliTxt += fill(T.contE, { v: esc(st.cliEmail.trim()) });
+    if ((st.cliTel || '').trim()) cliTxt += fill(T.contT, { v: esc(st.cliTel.trim()) });
     p(fill(T.p2, { cli: cliTxt }));
     p(T.p3);
 
@@ -48,11 +50,14 @@
     cl(T.t_ob1); ul(T.ob1);
     cl(T.t_ob2); ul(T.ob2.map(function (x) { return fill(x, { d: np(st.diasConteudo || '5', T.bd) }); }));
 
+    cl(T.t_mat); p(T.mat);
+
     cl(T.t_prazo); p(fill(T.prazo, { p: st.prazoDias ? np(st.prazoDias, T.bd) : ph(PH.prazo) }));
 
     cl(T.t_pag);
     var how, nTxt = np(parc, parc > 1 ? T.parcelas : T.parcela), ev = valor * entPct / 100, saldo = valor - ev;
-    if (pTipo === 'entrada') how = fill(T.pEntrada, { entry: entPct > 0 ? fill(T.pEntry, { pct: D.pct(entPct, lang), v: money(ev) }) : T.pNoEntry, sv: valor > 0 ? ' ' + money(saldo) : '', n: nTxt, each: valor > 0 ? fill(T.pEach, { v: money(saldo / parc) }) : '' });
+    if (pTipo === 'entrega') how = fill(T.pEntrega, { entry: entPct > 0 ? fill(T.pEntry, { pct: D.pct(entPct, lang), v: money(ev) }) : T.pNoEntry, sv: valor > 0 ? ' ' + money(saldo) : '' });
+    else if (pTipo === 'entrada') how = fill(T.pEntrada, { entry: entPct > 0 ? fill(T.pEntry, { pct: D.pct(entPct, lang), v: money(ev) }) : T.pNoEntry, sv: valor > 0 ? ' ' + money(saldo) : '', n: nTxt, each: valor > 0 ? fill(T.pEach, { v: money(saldo / parc) }) : '' });
     else if (pTipo === 'cartao') how = fill(T.pCartao, { n: nTxt, each: valor > 0 && parc > 1 ? fill(T.pEach, { v: money(valor / parc) }) : '' });
     else if (pTipo === 'outro') how = T.pOutro;
     else if (pTipo === 'pix') how = T.pPix;
@@ -61,13 +66,14 @@
     p(fill(T.pag1, { v: valor > 0 ? money(valor) + ' (' + esc(ext) + ')' : ph(PH.valor), how: how, taxes: st.incluiTaxas === '1' ? T.taxes : '' }));
     if ((st.pagTexto || '').trim()) p(esc(st.pagTexto.trim()));
     p(fill(T.late, { m: esc(st.multaMora || '0'), j: esc(st.juros || '0') }));
+    p(T.nf);
 
-    cl(T.t_rev); p(fill(T.rev, { n: np(st.revisoes || '2', Number(st.revisoes) === 1 ? T.round : T.rounds) }));
+    cl(T.t_rev); p(fill(T.rev, { n: W.nParen(st.revisoes || '2', Number(st.revisoes) === 1 ? T.round : T.rounds, lang, true) })); p(T.rev2);
     if (st.cMensal === '1') {
       var mv = F.num(st.mensal);
       cl(T.t_mens); p(fill(T.mens1, { v: mv > 0 ? money(mv) + ' (' + esc(W.cur(mv, moeda, lang)) + ')' : ph(PH.mensal) }));
       var mi = F.lines(st.mensalItens); if (mi.length) ul(mi.map(esc));
-      p(T.mens2); p(fill(T.mens3, { d: np(st.avisoPrevio || '7', T.dd) }));
+      p(T.mens2); p(fill(T.mens3, { d: np(st.avisoPrevio || '7', T.dd) })); p(T.mens4);
     } else if (st.cHosp === '1') { cl(T.t_host); p(st.hosp === 'incluso12' ? T.host_i : st.hosp === 'nao' ? T.host_n : T.host_c); }
     cl(T.t_ip); p(st.cessao === 'licenca' ? T.ip_l : T.ip_c); p(st.portfolio === '1' ? T.port_y : T.port_n);
     if (st.cSuporte === '1') { cl(T.t_sup); p(fill(T.sup, { d: np(st.suporteDias || '30', T.dd) })); }
@@ -76,11 +82,11 @@
     if (st.cLimit === '1') { cl(T.t_lim); p(T.lim); }
     if (st.cExtras === '1' && F.lines(st.extras).length) { cl(T.t_add); F.lines(st.extras).forEach(function (x) { p(esc(x)); }); }
 
-    cl(T.t_res); p(fill(T.res, { a: np(st.avisoPrevio || '7', T.dd), m: esc(st.multaRescisao || '0') }));
-    cl(T.t_gen); p(T.gen); p(st.assin === 'eletronica' ? T.sig_e : T.sig_p);
-    cl(T.t_law); p(fill(T.law, { f: val(st.foro || emp.foro, PH.foro) }));
+    cl(T.t_res); p(fill(T.res, { a: np(st.avisoPrevio || '7', T.dd) })); p(fill(T.res2, { m: esc(st.multaRescisao || '0') })); p(T.res3); p(T.res4);
+    cl(T.t_gen); p(T.gen); p(T.gen2); p(T.gen3); p(st.assin === 'eletronica' ? T.sig_e : T.sig_p);
+    cl(T.t_law); B.push(blk('<p>' + fill(T.law, { f: val(st.foro || emp.foro, PH.foro) }) + (pj ? '' : T.lawPF) + '</p>', 'blk keep'));
 
-    p('<br>' + val(st.cidade, PH.cidade) + ', ' + esc(D.dateLong(st.data, lang)) + '.');
+    B.push(blk('<p><br>' + val(st.cidade, PH.cidade) + ', ' + esc(D.dateLong(st.data, lang)) + '.</p>', 'blk keep'));
     var taxLbl = pj ? T.taxPJ : T.taxPF;
     var sg = '<div class="sign-grid"><div><span class="lbl">' + T.sA + '</span><br>' + esc(emp.nome) + '<small>' + (emp.cnpj ? 'CNPJ ' + esc(emp.cnpj) : '') + (emp.responsavel ? ' · ' + esc(emp.responsavel) : '') + '</small></div>' +
       '<div><span class="lbl">' + T.sB + '</span><br>' + (esc(st.cliNome) || ph(PH.cli)) + '<small>' + (st.cliDoc ? taxLbl + ' ' + esc(st.cliDoc) : '') + (pj && st.cliRep ? ' · ' + esc(st.cliRep) : '') + '</small></div>';
@@ -99,8 +105,8 @@
     var hs = [].map.call(body.children, function (el) { return el.getBoundingClientRect().height; });
     var pages = [[]], used = 0;
     blocks.forEach(function (b, i) {
-      var h = hs[i], next = blocks[i + 1], need = h;
-      if (b.cls.indexOf('cl') > -1 && next) need += hs[i + 1];
+      var h = hs[i], need = h, j = i;
+      while ((blocks[j].cls.indexOf('cl') > -1 || blocks[j].cls.indexOf('keep') > -1) && blocks[j + 1]) { j++; need += hs[j]; }
       if (used + need > PAGE_H && pages[pages.length - 1].length) { pages.push([]); used = 0; }
       pages[pages.length - 1].push(b); used += h;
     });
@@ -125,7 +131,7 @@
     d.getElementById('l-cliDoc').textContent = pj ? 'CNPJ / ' + t('ID fiscal') : 'CPF / ' + t('documento');
     d.getElementById('rep-box').style.display = pj ? '' : 'none';
     d.getElementById('f-parc').style.display = (st.pagTipo === 'cartao' || st.pagTipo === 'entrada') ? '' : 'none';
-    d.getElementById('f-ent').style.display = st.pagTipo === 'entrada' ? '' : 'none';
+    d.getElementById('f-ent').style.display = (st.pagTipo === 'entrada' || st.pagTipo === 'entrega') ? '' : 'none';
     var v = F.num(st.valor); d.getElementById('valor-ext').textContent = v > 0 ? W.cur(v, st.moeda, st.idioma) : '';
     var s = F.docStatus(st.cliDoc), hint = d.getElementById('cliDoc-hint');
     hint.textContent = (st.idioma === 'pt' && (st.cliTipo === 'pj' || true)) ? t(s === 'invalido' ? 'Documento com dígitos verificadores inválidos. Confira.' : s === 'incompleto' ? 'Documento incompleto.' : '') : '';
@@ -139,7 +145,7 @@
     if (!s) { L.ui.toast('Não foi possível salvar neste navegador.', 'err'); return null; }
     doc = s; dirty = false; S.draft.clear('contrato');
     history.replaceState(null, '', 'index.html?id=' + encodeURIComponent(doc.id));
-    d.getElementById('save-state').textContent = t('Salvo');
+    d.getElementById('save-state').textContent = 'Salvo';
     if (silent !== true) L.ui.toast('Contrato salvo no Painel');
     return s;
   }
@@ -147,7 +153,7 @@
   var LOC = [['titulo', 'titulo'], ['escopo', 'cEscopo'], ['mensalItens', 'mensalItens']];
   /** Troca para o idioma do documento todo texto que ainda é o padrão de QUALQUER idioma (textos editados são preservados). */
   function localize(legacy) {
-    LOC.forEach(function (k) { var v = D.translate(k[1], st[k[0]], st.idioma); if (v != null) st[k[0]] = v; });
+    LOC.forEach(function (k) { if (D.isDef(k[1], st[k[0]], legacy)) st[k[0]] = D.DEF[st.idioma][k[1]]; });
   }
   function init() {
     L.shell.mount('contrato'); L.ia.mount('contrato');
@@ -169,25 +175,23 @@
     L.editor.statusSelect(d.getElementById('status'), 'contrato', doc && doc.status);
     L.editor.tabs(d.getElementById('content'));
     var zm = L.editor.zoom(d.getElementById('doc'), d.getElementById('preview-panel'));
-    var autosave = L.ui.debounce(function () { if (dirty) save(true); }, 500);
+    var saveDraft = L.ui.debounce(function () { if (!doc) S.draft.set('contrato', st); d.getElementById('save-state').textContent = t(doc ? (dirty ? 'Alterações não salvas' : 'Salvo') : 'Rascunho automático'); }, 400);
     var bind = L.ui.bind(d.getElementById('form-panel'), st, function (key, e) {
       if (key === 'idioma') {
-        localize(!doc);
+        localize();
         e.target.dataset.prev = st.idioma; bind.pull();
       }
-      dirty = true; render(); d.getElementById('save-state').textContent = t('Alterações não salvas'); autosave();
+      dirty = true; render(); saveDraft();
     });
     d.querySelector('[data-k=idioma]').dataset.prev = st.idioma;
     d.getElementById('btn-salvar').addEventListener('click', function () { save(); });
     d.getElementById('status').addEventListener('change', function () { if (doc) { S.docs.setStatus(doc.id, this.value); L.ui.toast('Status atualizado'); } else save(); });
     d.getElementById('btn-pdf').addEventListener('click', function () { L.editor.print(D.C[st.idioma].doc + ' ' + st.num + ' - ' + (st.cliNome || 'Cliente')); });
     d.getElementById('btn-novo').addEventListener('click', function () {
-      L.ui.confirm({ title: 'Novo contrato?', text: 'Os campos serão limpos. O que já foi salvo continua no Painel.', ok: 'Começar novo' }).then(function (ok) { if (ok) { if (dirty) save(true); w.location.href = 'index.html'; } });
+      L.ui.confirm({ title: 'Novo contrato?', text: 'Os campos serão limpos. O que já foi salvo continua no Painel.', ok: 'Começar novo' }).then(function (ok) { if (ok) { S.draft.clear('contrato'); w.location.href = 'index.html'; } });
     });
-    w.addEventListener('pagehide', function () { if (dirty) save(true); });
-    render(); zm.fit();
-    if (!doc && (src || hand)) save(true);
-    else d.getElementById('save-state').textContent = t(doc ? 'Salvo' : 'Rascunho automático');
+    w.addEventListener('beforeunload', function (e) { if (doc && dirty) { e.preventDefault(); e.returnValue = ''; } });
+    render(); zm.fit(); saveDraft();
   }
   d.addEventListener('DOMContentLoaded', init);
 })(window, document);

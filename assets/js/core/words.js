@@ -67,8 +67,10 @@
     return out.join(AND[lang]);
   }
   /** "10 (ten) days" */
-  function nParen(n, unit, lang) {
+  function nParen(n, unit, lang, fem) {
     var e = int(n, lang); n = Math.floor(Number(n) || 0);
+    if (fem && e && lang === 'pt') e = e.replace(/\bum\b/g, 'uma').replace(/\bdois\b/g, 'duas');
+    if (fem && e && lang === 'es') e = e.replace(/uno\b/g, 'una');
     return n + (e ? ' (' + e + ')' : '') + (unit ? ' ' + unit : '');
   }
   L.words = { int: int, cur: cur, nParen: nParen };

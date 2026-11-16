@@ -26,7 +26,7 @@ const SCHEMAS = {
       cliDoc: 'CPF/CNPJ SOMENTE se o usuário informou', cliEnd: 'endereço', cliEmail: 'e-mail', cliTel: 'telefone',
       cliRep: 'representante legal', cliRepDoc: 'CPF do representante SOMENTE se informado', titulo: 'título do contrato',
       escopo: 'escopo, uma linha por item', prazoDias: 'prazo em dias úteis (número)', diasConteudo: 'dias úteis para o cliente enviar conteúdo (número)',
-      valor: 'valor da implantação (pagamento único) SOMENTE se informado (ex: 1500,00)', mensal: 'valor da mensalidade SOMENTE se informado (ex: 99,00)', cMensal: '1 ou "" (incluir cláusula de mensalidade)', mensalItens: 'itens da mensalidade, um por linha', pagTipo: 'pix | avista | cartao | entrada | outro',
+      valor: 'valor da implantação (pagamento único) SOMENTE se informado (ex: 1500,00)', mensal: 'valor da mensalidade SOMENTE se informado (ex: 99,00)', cMensal: '1 ou "" (incluir cláusula de mensalidade)', mensalItens: 'itens da mensalidade, um por linha', pagTipo: 'pix | avista | cartao | entrada | entrega (entrada + saldo na entrega) | outro',
       pagParcelas: 'nº de parcelas (número)', pagEntradaPct: 'entrada em % (número)', pagTexto: 'texto livre de pagamento',
       multaMora: 'multa por atraso % (número)', juros: 'juros ao mês % (número)', revisoes: 'rodadas de revisão (número)',
       avisoPrevio: 'dias de aviso prévio (número)', multaRescisao: 'multa de rescisão % (número)', cessao: 'pago | licenca',

@@ -7,7 +7,7 @@
   function propostaToContrato(d) {
     var D = L.docs18n, idi = d.idioma || 'pt', total = L.pricing.total(d);
     var pn = Math.floor(F.num(d.pn)), ent = F.num(d.ent), tipo = 'avista', parcelas = 1;
-    if (pn >= 1 || ent > 0) { tipo = 'entrada'; parcelas = Math.max(pn, 1); }
+    if (pn >= 1) { tipo = 'entrada'; parcelas = pn; } else if (ent > 0 && ent < 100) { tipo = 'entrega'; }
     var prazoNum = (String(d.prazo || '').match(/\d+/) || [''])[0];
     var pj = !!(d.cliEmp && d.cliEmp.trim());
     return {
@@ -20,7 +20,7 @@
       mensal: d.mensal || '', cMensal: F.num(d.mensal) > 0 ? '1' : '', mensalItens: d.mensalItens || D.DEF[idi].mensalItens,
       prazoDias: prazoNum,
       valor: total > 0 ? F.money(total) : '',
-      pagTipo: tipo, pagParcelas: String(parcelas), pagEntradaPct: tipo === 'entrada' ? String(d.ent || '') : '', pagTexto: ''
+      pagTipo: tipo, pagParcelas: String(parcelas), pagEntradaPct: (tipo === 'entrada' || tipo === 'entrega') ? String(d.ent || '') : '', pagTexto: ''
     };
   }
   L.bridge = { propostaToContrato: propostaToContrato };
