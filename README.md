@@ -77,3 +77,11 @@ Botão **Assistente IA** nas telas de Proposta, Contrato e Calculadora: você de
 - Opcional: secret `ACCESS_CODE` — se definido, a IA pede esse código na primeira vez (guardado no navegador). Recomendado, pois sem ele qualquer pessoa com o link do site poderia usar sua cota.
 - Local: crie `.dev.vars` com `GROQ_API_KEY=...` e rode `npx wrangler dev` (o arquivo é ignorado pelo Git).
 - A IA nunca inventa valores/documentos e não faz cálculos: imposto e taxas continuam sendo calculados pelo sistema.
+
+## Sincronização entre navegadores e contas
+
+Os dados ficam no navegador (localStorage) e, com a sincronização ligada, também num Cloudflare KV (`LDT_DATA`, declarado no `wrangler.jsonc`).
+
+1. No Worker, em Configurações → Variáveis e segredos em tempo de execução, crie o secret `ACCESS_CODE` (o mesmo código usado pela IA). Sem ele a sincronização fica desligada por segurança.
+2. Em cada navegador/conta, abra Configurações → "Sincronização" e informe o mesmo código.
+3. Propostas, contratos e configurações são unidos por documento (vence o mais recente) e as exclusões são respeitadas. Rascunhos em andamento não são sincronizados.

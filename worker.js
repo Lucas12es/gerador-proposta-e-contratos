@@ -118,6 +118,25 @@ async function ia(req, env) {
   return json({ campos, resposta: String((out && out.resposta) || 'Pronto.').slice(0, 800) });
 }
 
+
+/* Sincronização entre navegadores: um único documento JSON no KV, protegido pelo ACCESS_CODE. */
+async function sync(req, env) {
+  if (!env.LDT_DATA) return json({ erro: 'Armazenamento não configurado (falta o KV LDT_DATA no wrangler.jsonc).' }, 503);
+  if (!env.ACCESS_CODE) return json({ erro: 'Defina o secret ACCESS_CODE no Cloudflare para ativar a sincronização.' }, 503);
+  if (req.headers.get('x-ldt-code') !== env.ACCESS_CODE) return json({ erro: 'Código de acesso inválido.' }, 401);
+  const cur = (await env.LDT_DATA.get('ldt', 'json')) || { at: 0, data: null };
+  if (req.method === 'GET') return json({ at: cur.at, data: cur.data });
+  let body; try { body = await req.json(); } catch (e) { return json({ erro: 'Pedido inválido.' }, 400); }
+  const d = body && body.data;
+  if (!d || typeof d !== 'object' || !Array.isArray(d.docs)) return json({ erro: 'Dados inválidos.' }, 400);
+  const raw = JSON.stringify(d);
+  if (raw.length > 8000000) return json({ erro: 'Dados grandes demais.' }, 413);
+  if (Number(body.baseAt || 0) !== Number(cur.at || 0)) return json({ erro: 'conflito', at: cur.at, data: cur.data }, 409);
+  const at = Date.now();
+  await env.LDT_DATA.put('ldt', JSON.stringify({ at, data: d }));
+  return json({ at });
+}
+
 export default {
   async fetch(req, env) {
     const u = new URL(req.url);
@@ -125,6 +144,10 @@ export default {
       if (req.method === 'GET') return json({ worker: 'ok', chave_configurada: !!env.GROQ_API_KEY, codigo_de_acesso_configurado: !!env.ACCESS_CODE });
       if (req.method !== 'POST') return json({ erro: 'Método não permitido.' }, 405);
       return ia(req, env);
+    }
+    if (u.pathname === '/api/sync') {
+      if (req.method !== 'GET' && req.method !== 'PUT') return json({ erro: 'Método não permitido.' }, 405);
+      return sync(req, env);
     }
     return env.ASSETS.fetch(req);
   }

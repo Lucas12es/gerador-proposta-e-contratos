@@ -3,6 +3,7 @@
   "name": "gerador-proposta-e-contratos",
   "main": "worker.js",
   "keep_vars": true,
+  "kv_namespaces": [{ "binding": "LDT_DATA", "id": "70621bf8d1b14d5892918b2c43c515a4" }],
   "compatibility_date": "2026-11-13",
   "assets": {
     "directory": "./",

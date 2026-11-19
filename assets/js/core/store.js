@@ -33,6 +33,9 @@
     contrato: [['rascunho', 'Rascunho', ''], ['aguardando', 'Aguardando assinatura', 'warn'], ['assinado', 'Assinado', 'ok'], ['cancelado', 'Cancelado', 'danger']]
   };
 
+  function touch() { try { if (L.sync) L.sync.schedule(); } catch (e) { /* noop */ } }
+  function stamp(k) { var m = read('meta', {}); m[k] = Date.now(); write('meta', m); }
+
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
   function merge(def, obj) { var o = {}, k; for (k in def) o[k] = def[k]; for (k in (obj || {})) o[k] = obj[k]; return o; }
 
@@ -48,13 +51,17 @@
       doc.atualizadoEm = now;
       for (i = 0; i < all.length; i++) if (all[i].id === doc.id) { all[i] = doc; break; }
       if (i === all.length) all.push(doc);
-      return write('docs', all) ? doc : null;
+      var ok = write('docs', all); if (ok) touch();
+      return ok ? doc : null;
     },
-    remove: function (id) { write('docs', read('docs', []).filter(function (d) { return d.id !== id; })); },
+    remove: function (id) {
+      write('docs', read('docs', []).filter(function (d) { return d.id !== id; }));
+      var t = read('tomb', {}); t[id] = Date.now(); write('tomb', t); touch();
+    },
     setStatus: function (id, status) {
       var all = read('docs', []);
       all.forEach(function (d) { if (d.id === id) { d.status = status; d.atualizadoEm = new Date().toISOString(); } });
-      write('docs', all);
+      write('docs', all); touch();
     },
     duplicate: function (id) {
       var d = docs.get(id); if (!d) return null;
@@ -81,9 +88,9 @@
   L.store = {
     read: read, write: write, del: del, uid: uid, docs: docs, STATUS: STATUS, persistent: !!ls,
     empresa: function () { return merge(DEFAULT_EMPRESA, read('empresa', {})); },
-    saveEmpresa: function (o) { return write('empresa', o); },
+    saveEmpresa: function (o) { var r = write('empresa', o); stamp('empresaAt'); touch(); return r; },
     fin: function () { return merge(DEFAULT_FIN, read('fin', {})); },
-    saveFin: function (o) { return write('fin', o); },
+    saveFin: function (o) { var r = write('fin', o); stamp('finAt'); touch(); return r; },
     draft: {
       get: function (tipo) { return read('draft:' + tipo, null); },
       set: function (tipo, d) { return write('draft:' + tipo, d); },
@@ -103,9 +110,18 @@
       var cur = modo === 'mesclar' ? read('docs', []) : [];
       var ids = {}; cur.forEach(function (d) { ids[d.id] = 1; });
       o.docs.forEach(function (d) { if (!ids[d.id]) cur.push(d); });
-      write('docs', cur);
+      write('docs', cur); stamp('empresaAt'); stamp('finAt'); touch();
       return o.docs.length;
     },
-    wipe: function () { ['docs', 'empresa', 'fin', 'draft:proposta', 'draft:contrato', 'handoff:contrato'].forEach(del); }
+    /** Instantâneo para sincronização entre navegadores. */
+    snapshot: function () {
+      var m = read('meta', {});
+      return { empresa: read('empresa', {}), fin: read('fin', {}), empresaAt: m.empresaAt || 0, finAt: m.finAt || 0, docs: read('docs', []), tomb: read('tomb', {}) };
+    },
+    applySnapshot: function (o) {
+      write('empresa', o.empresa || {}); write('fin', o.fin || {}); write('docs', o.docs || []); write('tomb', o.tomb || {});
+      write('meta', { empresaAt: o.empresaAt || 0, finAt: o.finAt || 0 });
+    },
+    wipe: function () { ['docs', 'empresa', 'fin', 'tomb', 'meta', 'draft:proposta', 'draft:contrato', 'handoff:contrato'].forEach(del); }
   };
 })(window);

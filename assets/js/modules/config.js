@@ -28,6 +28,32 @@
     });
     cnpjHint();
 
+    /* Sincronização */
+    var sinfo = d.getElementById('sync-info'), scode = d.getElementById('sync-code');
+    scode.value = S.read('iacode', '') || '';
+    function showSync(r) {
+      var st = S.read('sync', null), t = L.i18n.t;
+      if (!S.read('iacode', '')) { sinfo.textContent = t('Sincronização desligada neste navegador.'); return; }
+      if (r && r.msg) { sinfo.textContent = t('Não sincronizou') + ': ' + r.msg; return; }
+      if (st && st.ok) sinfo.textContent = L.i18n.tf('Sincronizado em {d}. {n} documento(s) na nuvem.', { d: new Date(st.last).toLocaleString(), n: st.docs || 0 });
+      else if (st && st.msg) sinfo.textContent = t('Não sincronizou') + ': ' + st.msg;
+      else sinfo.textContent = '';
+    }
+    function doSync(btn) {
+      sinfo.textContent = L.i18n.t('Sincronizando…'); if (btn) btn.disabled = true;
+      L.sync.run().then(function (r) {
+        if (btn) btn.disabled = false; showSync(r);
+        if (r.ok) { L.ui.toast(r.pulled ? 'Dados da nuvem carregados' : 'Sincronizado'); if (r.pulled) setTimeout(function () { w.location.reload(); }, 900); }
+        else if (!r.skipped) L.ui.toast(r.msg || 'Falha na sincronização.', 'err');
+      });
+    }
+    d.getElementById('sync-save').addEventListener('click', function () {
+      var v = scode.value.trim(); if (!v) { L.ui.toast('Informe o código de acesso.', 'err'); return; }
+      S.write('iacode', v); doSync(this);
+    });
+    d.getElementById('sync-now').addEventListener('click', function () { if (!S.read('iacode', '')) { L.ui.toast('Informe o código de acesso.', 'err'); return; } doSync(this); });
+    showSync();
+
     /* Backup */
     var info = d.getElementById('bk-info');
     function count() { var n = S.docs.list().length; info.textContent = L.i18n.tf('{n} documento(s) salvo(s) neste navegador.', { n: n }); }

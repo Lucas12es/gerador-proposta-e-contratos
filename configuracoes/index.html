@@ -82,6 +82,17 @@
         <p class="hint">A taxa da TechFX é de 0,5% sobre o valor da cobrança. Confira as condições do seu contrato com a TechFX.</p>
       </section>
 
+      <section class="card cfg-card wide" aria-labelledby="h-sync">
+        <h2 id="h-sync">Sincronização entre navegadores e contas</h2>
+        <p>Com a sincronização ligada, propostas, contratos e configurações ficam guardados na nuvem e aparecem em qualquer navegador ou conta em que você informar o mesmo código de acesso.</p>
+        <label class="field"><span>Código de acesso</span><input type="password" id="sync-code" autocomplete="off" placeholder="O mesmo ACCESS_CODE definido no Cloudflare"></label>
+        <div class="backup-actions">
+          <button class="btn btn-primary" id="sync-save">Ativar e sincronizar</button>
+          <button class="btn btn-secondary" id="sync-now">Sincronizar agora</button>
+        </div>
+        <p id="sync-info" role="status"></p>
+      </section>
+
       <section class="card cfg-card wide" aria-labelledby="h-bkp">
         <h2 id="h-bkp">Backup dos dados</h2>
         <p>Propostas, contratos e configurações ficam salvos <b>apenas neste navegador</b>. Se você limpar os dados do navegador ou trocar de computador, eles somem. Exporte um backup de vez em quando e importe em outro lugar quando precisar.</p>
@@ -97,6 +108,7 @@
 </div>
 <script src="../assets/js/core/format.js"></script>
 <script src="../assets/js/core/store.js"></script>
+<script src="../assets/js/core/sync.js"></script>
 <script src="../assets/js/core/pricing.js"></script>
 <script src="../assets/js/core/i18n-dict.js"></script>
 <script src="../assets/js/core/i18n.js"></script>
